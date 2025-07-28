@@ -1,0 +1,8 @@
+.DS_Store
+tests/
+.vscode/
+*.out
+*.dSYM/
+*.o
+*.a
+main.c
