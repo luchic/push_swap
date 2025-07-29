@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:44:21 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/29 21:34:57 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:17:36 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,52 @@ static t_dlist	*ft_new_node(int value)
 	return (node);
 }
 
+static void	ft_free_dlist(t_dlist *head)
+{
+	t_dlist	*temp;
+
+	while (head)
+	{
+		temp = head;
+		head = head->next;
+		free(temp);
+	}
+}
+
+static t_dlist	*ft_add_front(t_dlist *head, int value)
+{
+	t_dlist	*new_node;
+
+	new_node = ft_new_node(value);
+	if (!new_node)
+		return (NULL);
+	new_node->next = head;
+	if (head)
+		head->prev = new_node;
+	return (new_node);
+}
+
 static t_dlist	*ft_setup_dlist(int *array, size_t len)
 {
 	t_dlist	*head;
-	t_dlist	*current;
+	t_dlist	*new_head;
 	size_t	i;
 
+	head = NULL;
+	while (len--)
+	{
+		new_head = ft_add_front(head, array[len]);
+		if (!new_head)
+		{
+			ft_free_dlist(head);
+			return (NULL);
+		}
+		head = new_head;
+	}
 	return (head);
 }
 
-static t_dlist	*ft_setup_container(char **data, size_t len)
-{
-	size_t	i;
-	int		*array;
-	t_dlist	*lst;
-
-	i = -1;
-	array = (int *)ft_calloc(len, sizeof(int));
-	if (!array)
-		return (NULL);
-	while (++i < len)
-		array[i] = ft_atoi(data[i]);
-	lst = ft_setup_dlist(array, len);
-	free(array);
-	return (lst);
-}
-
-t_stack	*ft_init_stack(char **data, size_t len)
+t_stack	*ft_init_stack(int *array, char **data, size_t len)
 {
 	t_stack	*stack;
 	t_dlist	*list;
@@ -61,10 +80,10 @@ t_stack	*ft_init_stack(char **data, size_t len)
 	stack = (t_stack *)ft_calloc(1, sizeof(t_stack));
 	if (!stack)
 		return (NULL);
-	if (len == 0 || data == NULL)
+	if (len == 0 || array == NULL)
 		return (stack->size = 0, stack->bottom = NULL, stack->bottom = NULL,
 			stack);
-	list = ft_setup_container(size, data);
+	list = ft_setup_dlist(array, len);
 	if (!list)
 		return (free(stack), NULL);
 	stack->top = list;
