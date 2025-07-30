@@ -6,12 +6,14 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 15:39:53 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/29 17:25:12 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/07/30 20:52:44 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_STACK_H
 # define FT_STACK_H
+
+# include <stddef.h>
 
 typedef struct s_dlist
 {
@@ -27,4 +29,5 @@ typedef struct s_stack
 	int				size;
 }					t_stack;
 
+t_stack	*ft_init_stack(int *array, size_t len);
 #endif

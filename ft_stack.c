@@ -6,12 +6,13 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:44:21 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/29 22:17:36 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/07/30 20:27:08 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_stack.h"
 #include "libft.h"
+#include <stdlib.h>
 
 static t_dlist	*ft_new_node(int value)
 {
@@ -71,7 +72,7 @@ static t_dlist	*ft_setup_dlist(int *array, size_t len)
 	return (head);
 }
 
-t_stack	*ft_init_stack(int *array, char **data, size_t len)
+t_stack	*ft_init_stack(int *array, size_t len)
 {
 	t_stack	*stack;
 	t_dlist	*list;
