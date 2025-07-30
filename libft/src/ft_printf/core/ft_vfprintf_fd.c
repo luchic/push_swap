@@ -6,12 +6,15 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:13:37 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/29 13:33:15 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:25:12 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_defs.h"
+#include "ft_parser.h"
+#include "ft_printer.h"
 #include "ft_vfprintf_fd.h"
+#include "libft.h"
 
 int	ft_vfprintf_fd(va_list ap, const char *format, int fd)
 {
