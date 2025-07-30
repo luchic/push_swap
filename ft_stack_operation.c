@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stack_operatin.c                                :+:      :+:    :+:   */
+/*   ft_stack_operation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 21:00:12 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/30 21:27:38 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/07/30 21:37:36 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ void	ft_swap(t_stack *stack)
 	first = stack->top;
 	second = first->next;
 	ft_switch_nodes(first, second);
+	stack->top = second;
+	if (stack->size == 2)
+		stack->bottom = first;
 }
 
 void	ft_push(t_stack *from, t_stack *to)
