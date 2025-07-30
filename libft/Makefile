@@ -6,7 +6,7 @@
 #    By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/07 13:35:53 by nluchini          #+#    #+#              #
-#    Updated: 2025/07/29 14:06:53 by nluchini         ###   ########.fr        #
+#    Updated: 2025/07/30 15:23:48 by nluchini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,8 +86,8 @@ CORE = 			$(SRC)/$(PATH_PRINTF)/core
 
 ## Core
 PRINTF_CORE = 	$(CORE)/ft_vfprintf_fd.c \
-			$(CORE)/ft_printf.c
-OBJ_CORE = 	$(SRC_CORE:.c=.o)
+				$(CORE)/ft_printf.c
+PROBJ_CORE = 	$(PRINTF_CORE:.c=.o)
 
 ## Parser
 SRC_PARSER = 	$(PARSER)/ft_parser.c
@@ -111,13 +111,13 @@ SRC_TOOLS = 	$(TOOLS)/ft_number_utils.c \
 OBJ_TOOLS = 	$(SRC_TOOLS:.c=.o)
 
 ## All Src files
-SRC_PRINTF = $(SRC_CORE)
+SRC_PRINTF += $(PRINTF_CORE)
 SRC_PRINTF += $(SRC_PARSER)
 SRC_PRINTF += $(SRC_PRINTER)
 SRC_PRINTF += $(SRC_TOOLS)
 
 ## All Object files
-OBJ_PRINTF = $(OBJ_CORE)
+OBJ_PRINTF += $(PROBJ_CORE)
 OBJ_PRINTF += $(OBJ_PARSER)
 OBJ_PRINTF += $(OBJ_PRINTER)
 OBJ_PRINTF += $(OBJ_TOOLS)
