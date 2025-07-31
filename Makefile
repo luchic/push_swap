@@ -35,8 +35,8 @@ all : $(NAME)
 # $(NAME) : 	$(OBJ_FILES) $(LIBFT)
 # 	$(CC) $(CDEBUG) $(OBJ_FILES) -L$(DLIBFT) -l$(FT)	
 
-debug : $(OBJ_FILES) $(LIBFT)
-	$(CC) $(CDEBUG) $(OBJ_FILES) -L$(DLIBFT) -l$(FT)	
+debug : $(SRC_FILES) $(LIBFT)
+	$(CC) $(CDEBUG) $(SRC_FILES) -L$(DLIBFT) -l$(FT)	
 
 $(LIBFT) :
 	make -C $(DLIBFT) all
