@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stack_operation.h                               :+:      :+:    :+:   */
+/*   ft_base_operation.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 21:27:56 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/30 21:28:50 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:13:12 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_STACK_OPERATION_H
-# define FT_STACK_OPERATION_H
+#ifndef FT_BASE_OPERATION_H
+# define FT_BASE_OPERATION_H
 
 # include "ft_stack.h"
 
