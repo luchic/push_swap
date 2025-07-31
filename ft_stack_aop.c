@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 09:52:46 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/31 11:13:33 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/07/31 21:11:51 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_sa(t_stack *stack)
 void	ft_pa(t_stack *stack_a, t_stack *stack_b)
 {
 	ft_printf("pa\n");
-	ft_push(stack_a, stack_b);
+	ft_push(stack_b, stack_a);
 }
 
 void	ft_ra(t_stack *stack)
