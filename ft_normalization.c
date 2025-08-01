@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 15:28:12 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/01 15:41:07 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:56:26 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ int *ft_normalize(int *array, int size)
 	normalized_array = ft_calloc(size, sizeof(int));
 	if (!normalized_array)
 		return (NULL);
-	i = 0;
-	while (i < size)
+	i = -1;
+	while (++i < size)
 	{
-		array[i] = ft_get_weight(array[i], array, size);
+		normalized_array[i] = ft_get_weight(array[i], array, size);
 	}
+	return (normalized_array);
 }
