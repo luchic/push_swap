@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:10:33 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/01 15:43:33 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:46:07 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_check_dublicate(int *array, int size)
 	if (!array || size < 0)
 		return (0);
 	if (size == 0 || size == 1)
-		return (1);
+		return (0);
 	i = 0;
 	while (i < size - 1)
 	{
@@ -101,12 +101,12 @@ int	ft_check_dublicate(int *array, int size)
 		while (j < size)
 		{
 			if (array[i] == array[j])
-				return (0);
+				return (1);
 			j++;
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 // TODO: this is return normal data of strings
