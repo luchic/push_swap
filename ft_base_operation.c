@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 21:00:12 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/31 11:13:16 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:11:42 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	ft_push(t_stack *from, t_stack *to)
 	if (to->top)
 		to->top->prev = node;
 	to->top = node;
+	if (to->size == 0)
+		to->bottom = node;
 	to->size++;
 }
 
