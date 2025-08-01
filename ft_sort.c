@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/01 14:31:24 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/01 21:06:16 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,208 @@ static void	ft_sort_les_eq5(t_stack *stack_a, t_stack *stack_b)
 		ft_pa(stack_a, stack_b);
 }
 
+int ft_get_max(t_stack *stack)
+{
+	t_dlist	*current;
+	int		max;
+
+	if (!stack || stack->size == 0)
+		return (0);
+	current = stack->top;
+	max = current->value;
+	while (current)
+	{
+		if (current->value > max)
+			max = current->value;
+		current = current->next;
+	}
+	return (max);
+}
+
+void __ft_random_sort(t_stack *stack_a, t_stack *stack_b)
+{
+	int size = stack_a->size;
+
+	while (size / 2 < stack_a->size)
+	{
+		if (ft_compare_top_max(stack_a) && ft_compare_top_min(stack_b))
+			ft_rr(stack_a, stack_b);
+		else if (ft_compare_top_max(stack_a))
+			ft_ra(stack_a);
+		ft_pb(stack_a, stack_b);
+	}
+	// while (stack_b->size > 0)
+	// {
+	// 	if (ft_compare_top_max(stack_a) && ft_compare_top_min(stack_b))
+	// 		ft_rr(stack_a, stack_b);
+	// 	else if (ft_compare_top_max(stack_a))
+	// 		ft_ra(stack_a);
+
+	// 	if (stack_a->top->value > stack_b->top->value)
+	// 		ft_ra(stack_a);
+	// 	ft_pa(stack_a, stack_b);
+	// }
+
+	int max = ft_get_max(stack_a);
+	while (stack_b->size > 0)
+	{
+		if(stack_a->top->value > stack_b->top->value || stack_a->top->value == max)
+			ft_pa(stack_a, stack_b);
+		else
+			ft_ra(stack_a);
+	}
+	while (size / 2 < stack_a->size)
+	{
+		if (ft_compare_top_min(stack_a) && ft_compare_top_min(stack_b))
+			ft_ss(stack_a, stack_b);
+		else if (ft_compare_top_min(stack_a))
+			ft_sa(stack_a);
+		ft_pb(stack_a, stack_b);
+	}
+	max = ft_get_max(stack_a);
+	while (stack_b->size > 0)
+	{
+		if(stack_a->top->value > stack_b->top->value || stack_a->top->value == max)
+			ft_pa(stack_a, stack_b);
+		else
+			ft_ra(stack_a);
+	}
+}
+
+int ft_top_a_is_max(t_stack *stack_a, t_stack *stack_b)
+{
+	if (!stack_a || !stack_b || stack_a->size == 0 || stack_b->size == 0)
+		return (0);
+	if (stack_a->top->value > stack_b->top->value)
+		return (1);
+	return (0);
+}
+
+void ft_sort_body(t_stack *stack_a, t_stack *stack_b, int max, int min)
+{
+	while (1)
+	{
+
+		
+	}	
+}
+
+// void ft_random_sort(t_stack *stack_a, t_stack *stack_b)
+// {
+// 	int size = stack_a->size;
+// 	int max;
+// 	int min;
+	
+// 	// int count = 0;
+// 	ft_pb(stack_a, stack_b);
+// 	ft_pb(stack_a, stack_b);
+// 	if (stack_b->top->value > stack_b->top->next->value)
+// 	{
+// 		max = stack_b->top->value;
+// 		min = stack_b->top->next->value;
+// 	}
+// 	else
+// 	{
+// 		max = stack_b->top->next->value;
+// 		min = stack_b->top->value;
+// 	}
+// 	ft_sort_body(stack_a, stack_b, max, min);
+// }
+
+void __ft_set_mmd(t_stack *stack, t_stack *stack_b)
+{
+	int div;
+	int fir;
+	int mid;
+	int thd;
+
+	div = stack->size / 3;
+
+	if (stack->size < 3)
+		return ;
+	fir = stack->top->value;
+	mid = stack->top->next->value;
+	thd = stack->top->next->next->value;
+	if (fir > mid && fir > thd)
+		ft_ra(stack);
+	else if (fir < mid && fir < thd)
+	{
+		ft_pb(stack, stack_b);
+		ft_rb(stack_b);
+	}else
+		ft_pb(stack, stack_b);
+
+	if (fir < mid && thd < mid)
+		ft_ra(stack);
+	else if (fir > mid && thd > mid)
+	{
+		ft_pb(stack, stack_b);
+		ft_rb(stack_b);
+	}else
+		ft_pb(stack, stack_b);
+
+	if (thd > mid && thd > fir)
+		ft_ra(stack);
+	else if (thd < mid && thd < fir)
+	{
+		ft_pb(stack, stack_b);
+		ft_rb(stack_b);
+	}else
+		ft_pb(stack, stack_b);
+}
+
+void ft_set_mmd(t_stack *stack, t_stack *stack_b)
+{
+	int div;
+	int fir;
+	int mid;
+	int thd;
+
+	div = stack->size / 3;
+
+	if (stack->size < 3)
+		return ;
+	fir = stack->top->value;
+	mid = stack->top->next->value;
+	thd = stack->top->next->next->value;
+	if (fir > mid && fir > thd)
+		ft_ra(stack);
+	else if (fir < mid && fir < thd)
+	{
+		ft_pb(stack, stack_b);
+		ft_rb(stack_b);
+	}else
+		ft_pb(stack, stack_b);
+
+	if (fir < mid && thd < mid)
+		ft_ra(stack);
+	else if (fir > mid && thd > mid)
+	{
+		ft_pb(stack, stack_b);
+		ft_rb(stack_b);
+	}else
+		ft_pb(stack, stack_b);
+
+	if (thd > mid && thd > fir)
+		ft_ra(stack);
+	else if (thd < mid && thd < fir)
+	{
+		ft_pb(stack, stack_b);
+		ft_rb(stack_b);
+	}else
+		ft_pb(stack, stack_b);
+}
+
+void ft_random_sort(t_stack *stack_a, t_stack *stack_b)
+{
+	int count = 0;
+	while (stack_a->size > 3)
+	{
+		ft_set_mmd(stack_a, stack_b);
+		count++;
+	}
+}
+
 void	ft_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	if (ft_check_is_sorted(stack_a))
@@ -206,4 +408,8 @@ void	ft_sort(t_stack *stack_a, t_stack *stack_b)
 		return (ft_sort_les_eq3(stack_a));
 	else if (stack_a->size <= 5)
 		return (ft_sort_les_eq5(stack_a, stack_b));
+	// _brootforce_ft_sort(stack_a, stack_b);
+	// ft_sort_les_eq5(stack_a, stack_b);
+	ft_random_sort(stack_a, stack_b);
 }
+
