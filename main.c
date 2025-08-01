@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 18:12:25 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/31 21:25:16 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:57:59 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "ft_stack_operation.h"
 #include "ft_sort.h"
 #include "ft_utils.h"
+#include <stdlib.h>
 
 void ft_print_data(t_stack *stack)
 {
@@ -45,8 +46,22 @@ int main(int argc, char **argv)
 		ft_printf("Error\n");
 		return (1);
 	}
+	if (ft_check_dublicate(arra, size))
+	{
+		ft_printf("Error\n");
+		free(arra);
+		return (1);
+	}
+	int *norm = ft_normalize(arra, size);
+	if(!norm)
+	{
+		ft_printf("Error\n");
+		free(arra);
+		return (1);
+	}
 
-	t_stack *stack_a = ft_init_stack(arra, size);
+	free(arra);
+	t_stack *stack_a = ft_init_stack(norm, size);
 	t_stack *stack_b = ft_init_stack(NULL, 0);
 
 	ft_printf("Before sorting:\n");
