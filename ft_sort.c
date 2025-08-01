@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/01 21:06:16 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/01 21:55:38 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,57 +347,75 @@ void __ft_set_mmd(t_stack *stack, t_stack *stack_b)
 	}else
 		ft_pb(stack, stack_b);
 }
-
-void ft_set_mmd(t_stack *stack, t_stack *stack_b)
+int ft_check_st(t_stack *stack, int div)
 {
-	int div;
-	int fir;
-	int mid;
-	int thd;
+	t_dlist	*current;
 
-	div = stack->size / 3;
+	if (!stack || stack->size < 3)
+		return (1);
+	current = stack->top;
+	while (current)
+	{
+		if (current->value < div * 2)
+			return (0);
+		current = current->next;
+	}
+	return (1);
+}
+
+int ft_set_mmd(t_stack *stack, t_stack *stack_b, int div)
+{
+	int fir;
 
 	if (stack->size < 3)
-		return ;
+		return 1;
+	if (ft_check_st(stack, div))
+		return 1;
 	fir = stack->top->value;
-	mid = stack->top->next->value;
-	thd = stack->top->next->next->value;
-	if (fir > mid && fir > thd)
+	if (fir >= div * 2)
 		ft_ra(stack);
-	else if (fir < mid && fir < thd)
-	{
+	else if (fir >= div && fir < div * 2)
+	{	
 		ft_pb(stack, stack_b);
-		ft_rb(stack_b);
-	}else
+		if (stack_b->size > 1)
+			ft_rb(stack_b);
+	}else if (fir < div)
 		ft_pb(stack, stack_b);
-
-	if (fir < mid && thd < mid)
-		ft_ra(stack);
-	else if (fir > mid && thd > mid)
-	{
-		ft_pb(stack, stack_b);
-		ft_rb(stack_b);
-	}else
-		ft_pb(stack, stack_b);
-
-	if (thd > mid && thd > fir)
-		ft_ra(stack);
-	else if (thd < mid && thd < fir)
-	{
-		ft_pb(stack, stack_b);
-		ft_rb(stack_b);
-	}else
-		ft_pb(stack, stack_b);
+	return (0);
 }
 
 void ft_random_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	int count = 0;
-	while (stack_a->size > 3)
+	int div = stack_a->size / 3;
+	while (stack_a->size > div + 1)
 	{
-		ft_set_mmd(stack_a, stack_b);
-		count++;
+		if (ft_set_mmd(stack_a, stack_b, div))
+			break;
 	}
+	ft_set_mmd(stack_a, stack_b, div);
+
+	div = stack_a->size / 3;
+	while (stack_a->size > div + 1)
+	{
+		if (ft_set_mmd(stack_a, stack_b, div))
+			break;
+	}
+	ft_set_mmd(stack_a, stack_b, div);
+
+	div = stack_a->size / 3;
+	while (stack_a->size > div + 1)
+	{
+		if (ft_set_mmd(stack_a, stack_b, div))
+			break;
+	}
+	ft_set_mmd(stack_a, stack_b, div);
+	// div = stack_a->size / 3;
+	// while (stack_a->size > stack_a->size / 3 + 1 && count < 200)
+	// {
+	// 	ft_set_mmd(stack_a, stack_b, div);
+	// 	count++;
+	// }
 }
 
 void	ft_sort(t_stack *stack_a, t_stack *stack_b)
