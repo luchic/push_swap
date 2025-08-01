@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/31 21:15:01 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:31:24 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	ft_skip(t_stack *stack, int iter)
 	int	size;
 
 	size = stack->size;
-	if ((size / 2) > iter)
+	if (((size + 1) / 2) > iter)
 	{
 		while (iter--)
 			ft_ra(stack);
@@ -177,19 +177,25 @@ static void	ft_merg_sorted_tail_4(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
-static void	ft_merg_sorted_tail_5(t_stack *stack_a, t_stack *stack_b)
-{
-}
-
 static void	ft_sort_les_eq5(t_stack *stack_a, t_stack *stack_b)
 {
+	int	index;
+
+	index = ft_find_min(stack_a);
+	ft_skip(stack_a, index);
+	if (ft_check_is_sorted(stack_a))
+		return ;
 	ft_pb(stack_a, stack_b);
 	if (stack_a->size == 4)
+	{
+		index = ft_find_min(stack_a);
+		ft_skip(stack_a, index);
 		ft_pb(stack_a, stack_b);
+	}
 	ft_sort_les_eq3(stack_a);
+	ft_pa(stack_a, stack_b);
 	if (stack_b->size == 1)
-		return (ft_merg_sorted_tail_4(stack_a, stack_b));
-	return (ft_merg_sorted_tail_5(stack_a, stack_b));
+		ft_pa(stack_a, stack_b);
 }
 
 void	ft_sort(t_stack *stack_a, t_stack *stack_b)
