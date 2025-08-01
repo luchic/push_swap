@@ -22,7 +22,7 @@ HEADER = includes
 
 # Compiler and flags
 CFLAGS = -Wall -Wextra -Werror -I$(HEADER)
-CDEBUG = -g -I$(HEADER) -o	$(TOUT)
+CDEBUG = -g -I$(HEADER) -o	$(TOUT) -fsanitize=address,undefined
 CC = cc
 
 all : $(NAME)
