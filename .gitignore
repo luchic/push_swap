@@ -5,3 +5,4 @@ tests/
 *.dSYM/
 *.o
 *.a
+push_swap
