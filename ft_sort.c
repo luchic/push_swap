@@ -6,10 +6,12 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/01 21:55:38 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/04 11:37:41 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_sort.h"
+#include "libft.h"
 #include "ft_stack_operation.h"
 
 static int	ft_check_is_sorted(t_stack *stack)
@@ -204,7 +206,7 @@ int ft_get_max(t_stack *stack)
 	int		max;
 
 	if (!stack || stack->size == 0)
-		return (0);
+		return (-1);
 	current = stack->top;
 	max = current->value;
 	while (current)
@@ -214,6 +216,24 @@ int ft_get_max(t_stack *stack)
 		current = current->next;
 	}
 	return (max);
+}
+
+int ft_get_min(t_stack *stack)
+{
+	t_dlist	*current;
+	int		min;
+
+	if (!stack || stack->size == 0)
+		return (-1);
+	current = stack->top;
+	min = current->value;
+	while (current)
+	{
+		if (current->value < min)
+			min = current->value;
+		current = current->next;
+	}
+	return (min);
 }
 
 void __ft_random_sort(t_stack *stack_a, t_stack *stack_b)
@@ -363,59 +383,209 @@ int ft_check_st(t_stack *stack, int div)
 	return (1);
 }
 
-int ft_set_mmd(t_stack *stack, t_stack *stack_b, int div)
+int ft_set_mmd(t_stack *stack, t_stack *stack_b, t_chunks chunks)
 {
 	int fir;
 
 	if (stack->size < 3)
 		return 1;
-	if (ft_check_st(stack, div))
-		return 1;
 	fir = stack->top->value;
-	if (fir >= div * 2)
+	
+	if (fir >= chunks.max_min && fir <= chunks.max_max)
 		ft_ra(stack);
-	else if (fir >= div && fir < div * 2)
+	else if (fir >= chunks.mid_min && fir <= chunks.mid_max)
+		ft_pb(stack, stack_b);
+	else if (fir >= chunks.min_min && fir <= chunks.min_max)
 	{	
 		ft_pb(stack, stack_b);
 		if (stack_b->size > 1)
 			ft_rb(stack_b);
-	}else if (fir < div)
-		ft_pb(stack, stack_b);
+	}
 	return (0);
 }
 
-void ft_random_sort(t_stack *stack_a, t_stack *stack_b)
+void ft_return(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
 {
+	int i = 0;
+
+	ft_sort_les_eq3(stack_a);
+
+	if (chunks.mid_max - chunks.mid_min + 1 == 1)
+		ft_pa(stack_a, stack_b);
+	else /* if (chunks.mid_max - chunks.mid_min + 1 == 2) */
+	{
+		if (stack_b->top->value < stack_b->top->next->value)
+			ft_sb(stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_pa(stack_a, stack_b);
+	}
+
+	if (chunks.min_max - chunks.min_min + 1 == 1)
+	{
+		ft_rrb(stack_b);
+		ft_pa(stack_a, stack_b);
+	}
+	else /* if  (chunks.min_max - chunks.min_min + 1 == 2)*/
+	{
+		ft_rrb(stack_b);
+		ft_rrb(stack_b);
+		if (stack_b->top->value < stack_b->top->next->value)
+			ft_sb(stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_pa(stack_a, stack_b);
+	}
+	/* while (i < div + (size & 1 || size & 2))
+	{
+		ft_pa(stack_a, stack_b);
+		i++;
+	}
+	i = 0;
+	while (i < div)
+	{
+		if (stack_b->size > 1)
+			ft_rrb(stack_b);
+		ft_pa(stack_a, stack_b);
+		i++;
+	} */
+	
+}
+
+void ft_push_tree(t_stack *stack_a, t_stack *stack_b, int div)
+{
+	if (div == 1)
+	{
+		ft_pa(stack_a, stack_b);
+		return ;
+	}
+
+	if (div == 2)
+	{
+		if (stack_b->top->value > stack_b->top->next->value)
+		{
+			ft_pa(stack_a, stack_b);
+			ft_pa(stack_a, stack_b);
+		}
+		else
+		{
+			ft_sb(stack_b);
+			ft_pa(stack_a, stack_b);
+			ft_pa(stack_a, stack_b);
+		}
+	}
+	if(stack_b->top->value > stack_b->top->next->value
+		&& stack_b->top->value > stack_b->top->next->next->value)
+	{
+		ft_pa(stack_a, stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_pa(stack_a, stack_b);
+	}
+	else if  (stack_b->top->value < stack_b->top->next->value
+		&& stack_b->top->value > stack_b->top->next->next->value)
+	{
+		ft_sb(stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_pa(stack_a, stack_b);
+	}
+	else if (stack_b->top->value < stack_b->top->next->value
+		&& stack_b->top->value < stack_b->top->next->next->value
+		&& stack_b->top->next->value < stack_b->top->next->next->value)
+	{
+		ft_pa(stack_a, stack_b);
+		ft_ra(stack_a);
+		ft_sb(stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_rra(stack_a);
+	}
+	else if (stack_b->top->value < stack_b->top->next->value
+		&& stack_b->top->value < stack_b->top->next->next->value
+		&& stack_b->top->next->value > stack_b->top->next->next->value)
+	{
+		ft_pa(stack_a, stack_b);
+		ft_ra(stack_a);
+		ft_pa(stack_a, stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_rra(stack_a);
+	}
+	else if (stack_b->top->value > stack_b->top->next->value
+		&& stack_b->top->value < stack_b->top->next->next->value)
+	{
+		ft_pa(stack_a, stack_b);
+		ft_ra(stack_a);
+		ft_sb(stack_b);
+		ft_pa(stack_a, stack_b);
+		ft_rra(stack_a);
+		ft_pa(stack_a, stack_b);
+	}
+}
+
+void ft_skip_treed(t_stack *stack, int div)
+{
+	int i = -1;
+	while (++i < div)
+		ft_rrb(stack);
+}
+
+void ft_set_chunks(t_chunks *chunks, int pos)
+{
+    int div = chunks->size / 3;
+	int shift = chunks->max_min;
+	chunks->min_min = shift;
+	chunks->min_max = shift + div - 1;
+	chunks->mid_min = shift + div;
+	if (chunks->size % 3 == 2)
+		chunks->mid_max = shift + 2 * div;
+	else
+		chunks->mid_max = shift + 2 * div - 1;
+	if (chunks->size % 3 == 2)
+		chunks->max_min = shift + 2 * div + 1;
+	else
+		chunks->max_min = shift + 2 * div;
+	chunks->max_max = chunks->max_max;
+}
+void ft_random_sort(t_stack *stack_a, t_stack *stack_b, int op, t_chunks chunks)
+{	
 	int count = 0;
-	int div = stack_a->size / 3;
-	while (stack_a->size > div + 1)
+	if (stack_a->size <= 3)
 	{
-		if (ft_set_mmd(stack_a, stack_b, div))
-			break;
+		ft_return(stack_a, stack_b, chunks);
+		//ft_sort_les_eq3(stack_a)/* , ft_return(stack_a, stack_b, div, op) */;
+		// ft_push_tree(stack_a, stack_b, div);
+		// ft_skip_treed(stack_b, div);
+		// ft_push_tree(stack_a, stack_b, div);
+		// ft_push_tree(stack_a, stack_b, div);
+		// ft_push_tree(stack_a, stack_b, div);
+		return ;
 	}
-	ft_set_mmd(stack_a, stack_b, div);
+	chunks.size = stack_a->size;
+	ft_set_chunks(&chunks, stack_a->size);
+	while (count < op)
+	{
+		// if(stack_a->size <= 3)
+		// 	break;
+		ft_set_mmd(stack_a, stack_b, chunks);
+		count++;
+	}
+	ft_random_sort(stack_a, stack_b, stack_a->size + 1, chunks);
 
-	div = stack_a->size / 3;
-	while (stack_a->size > div + 1)
-	{
-		if (ft_set_mmd(stack_a, stack_b, div))
-			break;
-	}
-	ft_set_mmd(stack_a, stack_b, div);
-
-	div = stack_a->size / 3;
-	while (stack_a->size > div + 1)
-	{
-		if (ft_set_mmd(stack_a, stack_b, div))
-			break;
-	}
-	ft_set_mmd(stack_a, stack_b, div);
-	// div = stack_a->size / 3;
-	// while (stack_a->size > stack_a->size / 3 + 1 && count < 200)
-	// {
-	// 	ft_set_mmd(stack_a, stack_b, div);
-	// 	count++;
-	// }
+}
+void __new_ft_random_sort(t_stack *stack_a, t_stack *stack_b)
+{
+	t_chunks	chunks;
+	ft_memset(&chunks, 0, sizeof(t_chunks));
+	// int div = stack_a->size / 3;
+	// chunks.size = stack_a->size;
+	// chunks.max_max = stack_a->size - 1;
+	// if (stack_a->size % 3 == 2)
+	// 	chunks.max_min = div * 2 + 1;
+	// else
+	// 	chunks.max_min = div * 2;
+	// chunks.min_min = 0;
+	chunks.max_min = 0;
+	chunks.max_max = stack_a->size - 1;
+	ft_random_sort(stack_a, stack_b, stack_a->size + 1, chunks);
+	// ft_random_sort(stack_a, stack_b);
 }
 
 void	ft_sort(t_stack *stack_a, t_stack *stack_b)
@@ -428,6 +598,6 @@ void	ft_sort(t_stack *stack_a, t_stack *stack_b)
 		return (ft_sort_les_eq5(stack_a, stack_b));
 	// _brootforce_ft_sort(stack_a, stack_b);
 	// ft_sort_les_eq5(stack_a, stack_b);
-	ft_random_sort(stack_a, stack_b);
+	__new_ft_random_sort(stack_a, stack_b);
 }
 
