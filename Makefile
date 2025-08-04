@@ -15,7 +15,7 @@ LIBFT = $(DLIBFT)/libft.a
 FT = ft
 
 # For tests
-TOUT = a.out
+TOUT = push_swap
 
 # Header
 HEADER = includes
