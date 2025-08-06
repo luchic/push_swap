@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 09:59:01 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/31 11:13:47 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/05 20:13:18 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,32 @@ rrr : rra and rrb at the same time. */
 
 void	ft_sb(t_stack *stack)
 {
+	if (!stack || stack->size < 2)
+		return ;
 	ft_printf("sb\n");
 	ft_swap(stack);
 }
 
 void	ft_pb(t_stack *stack_a, t_stack *stack_b)
 {
+	if (!stack_a || stack_a->size == 0)
+		return ;
 	ft_printf("pb\n");
 	ft_push(stack_a, stack_b);
 }
 
 void	ft_rb(t_stack *stack)
 {
+	if (!stack || stack->size < 2)
+		return ;
 	ft_printf("rb\n");
 	ft_rotate(stack);
 }
 
 void	ft_rrb(t_stack *stack)
 {
+	if (!stack || stack->size < 2)
+		return ;
 	ft_printf("rrb\n");
 	ft_rrotate(stack);
 }

@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 11:09:48 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/31 11:13:41 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:36:01 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ rrr : rra and rrb at the same time. */
 
 void	ft_ss(t_stack *stack_a, t_stack *stack_b)
 {
+	if (!stack_a || !stack_b)
+		return ;
+	if (stack_a->size < 2 || stack_b->size < 2)
+		return ;
 	ft_printf("ss\n");
 	ft_swap(stack_a);
 	ft_swap(stack_b);
@@ -42,6 +46,10 @@ void	ft_ss(t_stack *stack_a, t_stack *stack_b)
 
 void	ft_rr(t_stack *stack_a, t_stack *stack_b)
 {
+	if (!stack_a || !stack_b )
+		return ;
+	if (stack_a->size < 2 || stack_b->size < 2)
+		return ;
 	ft_printf("rr\n");
 	ft_rotate(stack_a);
 	ft_rotate(stack_b);
@@ -49,6 +57,10 @@ void	ft_rr(t_stack *stack_a, t_stack *stack_b)
 
 void	ft_rrr(t_stack *stack_a, t_stack *stack_b)
 {
+	if (!stack_a || !stack_b)
+		return ;
+	if (stack_a->size < 2 || stack_b->size < 2)
+		return ;
 	ft_printf("rrr\n");
 	ft_rrotate(stack_a);
 	ft_rrotate(stack_b);
