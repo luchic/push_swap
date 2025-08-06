@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 21:00:12 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/01 15:11:42 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/05 22:00:28 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	ft_switch_nodes(t_dlist *first, t_dlist *second)
 		second->next->prev = first;
 	second->next = first;
 	second->prev = first->prev;
+	first->prev = second;
 }
 
 void	ft_swap(t_stack *stack)
@@ -87,8 +88,10 @@ void	ft_rotate(t_stack *stack)
 		return ;
 	first = stack->top;
 	last = stack->bottom;
+
 	stack->top = first->next;
 	stack->top->prev = NULL;
+
 	first->next = NULL;
 	last->next = first;
 	first->prev = last;
