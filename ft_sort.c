@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/04 21:06:28 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:05:40 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,6 +410,8 @@ int ft_set_mmd_mid(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
 
 	// if (chunks.mid_max - chunks.mid_min < 3)
 	// 	return 1;
+	// fir = -1;
+	// if (stack_b->top)
 	fir = stack_b->top->value;
 	
 	if (fir >= chunks.max_min && fir <= chunks.max_max)
@@ -423,67 +425,165 @@ int ft_set_mmd_mid(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
 		ft_rb(stack_b);
 	return (0);
 }
+int ft_set_mmd_min(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
+{
+	int fir;
+
+	// if (chunks.mid_max - chunks.mid_min < 3)
+	// 	return 1;
+	fir = stack_b->bottom->value;
+
+	if (fir >= chunks.max_min && fir <= chunks.max_max)
+		ft_pa(stack_a, stack_b);
+	else if (fir >= chunks.mid_min && fir <= chunks.mid_max)
+	{	ft_pa(stack_a, stack_b);
+		if (stack_a->size > 1)
+			ft_ra(stack_a);
+	}
+	else if (fir >= chunks.min_min && fir <= chunks.min_max)
+		ft_rb(stack_b);
+	return (0);
+}
+
+int ft_set_mmd_bota(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
+{
+	int fir;
+
+	// if (chunks.mid_max - chunks.mid_min < 3)
+	// 	return 1;
+	fir = stack_b->bottom->value;
+	ft_rra(stack_a);
+	if (fir >= chunks.mid_min && fir <= chunks.mid_max)
+		ft_pb(stack_a, stack_b);
+	else if (fir >= chunks.min_min && fir <= chunks.min_max)
+	{
+		ft_pb(stack_a, stack_b);
+		if (stack_b->size > 1)
+			ft_rb(stack_a);
+	}
+	return (0);
+}
+
+void ft_move_three_or_less(t_stack *stack_a, t_stack *stack_b, int num)
+{
+	ft_pa(stack_a, stack_b);
+	if (num == 2)
+	{
+		ft_pa(stack_a, stack_b);
+		if (stack_a->top->value > stack_a->top->next->value)
+			ft_sa(stack_a);
+		return ;
+	}
+	if (num == 3)
+	{
+		if (stack_b->top->value < stack_b->top->next->value)
+			ft_sb(stack_b);
+		if (stack_b->top->next->value > stack_a->top->value)
+		{
+			ft_ra(stack_a);
+			ft_pa(stack_a, stack_b);
+			ft_pa(stack_a, stack_b);
+			ft_rra(stack_a);
+		}
+		else if (stack_b->top->next->value > stack_a->top->value)
+		{
+			ft_ra(stack_a);
+			ft_pa(stack_a, stack_b);
+			ft_rra(stack_a);
+			ft_pa(stack_a, stack_b);
+		}
+		else if (stack_b->top->next->value < stack_a->top->value
+			&& stack_b->top->value > stack_a->top->value)
+		{
+			ft_pa(stack_a, stack_b);
+			ft_sa(stack_a);
+			ft_pa(stack_a, stack_b);
+		}
+		else 
+		{
+			ft_pa(stack_a, stack_b);
+			ft_pa(stack_a, stack_b);
+		}
+	}
+}
+
+void ft_rra_m(t_stack *stack, int num, void (*ft_r)(t_stack *))
+{
+	int i;
+
+	i = 0;
+	while (i < num)
+	{
+		ft_r(stack);
+		i++;
+	}
+}
 
 void ft_return(t_stack *stack_a, t_stack *stack_b, t_chunks chunks, t_pos pos)
 {
 	int i = 0;
 
+	int mx = chunks.max_max - chunks.max_min + 1;
 	if(stack_a->size <= 3)
 		ft_sort_les_eq3(stack_a);
-
-	if(pos == TOP_A)
+	else if (mx != 1)
 	{
-		if (chunks.mid_max - chunks.mid_min + 1 == 1)
-			ft_pa(stack_a, stack_b);
-		else /* if (chunks.mid_max - chunks.mid_min + 1 == 2) */
+		if (ft_compare_top_max(stack_a))
+			ft_sa(stack_a);
+		if (mx == 3 && stack_a->top->next->value > stack_a->top->next->next->value)
 		{
-			if (stack_b->top->value < stack_b->top->next->value)
-				ft_sb(stack_b);
-			ft_pa(stack_a, stack_b);
-			ft_pa(stack_a, stack_b);
-		}
-
-		if (chunks.min_max - chunks.min_min + 1 == 1)
-		{
-			ft_rrb(stack_b);
-			ft_pa(stack_a, stack_b);
-		}
-		else /* if  (chunks.min_max - chunks.min_min + 1 == 2)*/
-		{
-			ft_rrb(stack_b);
-			ft_rrb(stack_b);
-			if (stack_b->top->value < stack_b->top->next->value)
-				ft_sb(stack_b);
-			ft_pa(stack_a, stack_b);
-			ft_pa(stack_a, stack_b);
-		}
-	}
-	if(pos == TOP_B)
-	{
-		if (chunks.mid_max - chunks.mid_min + 1 == 1)
+			ft_ra(stack_a);
+			ft_sa(stack_a);
 			ft_rra(stack_a);
-		else /* if (chunks.mid_max - chunks.mid_min + 1 == 2) */
-		{
-			ft_rra(stack_a);
-			ft_rra(stack_a);
-			if (stack_a->top->value > stack_a->top->next->value)
+			if (ft_compare_top_max(stack_a))
 				ft_sa(stack_a);
 		}
+	}
 
-		if (chunks.min_max - chunks.min_min + 1 == 1)
+	if(pos == TOP_A)
+	{	
+		ft_move_three_or_less(stack_a, stack_b, chunks.mid_max - chunks.mid_min + 1);
+		ft_rra_m(stack_b, chunks.min_max - chunks.min_min + 1, ft_rrb);
+		ft_move_three_or_less(stack_a, stack_b, chunks.min_max - chunks.min_min + 1);
+	}
+	if(pos == TOP_B || pos == BOTTOM_B)
+	{
+		if (chunks.mid_max - chunks.mid_min + 1 == 1)
+			ft_rra(stack_a);
+		else if (chunks.mid_max - chunks.mid_min + 1 == 2)
 		{
-			ft_rrb(stack_b);
-			ft_pa(stack_a, stack_b);
+			ft_rra(stack_a);
+			ft_rra(stack_a);
+			if (ft_compare_top_max(stack_a))
+				ft_sa(stack_a);
 		}
-		else /* if  (chunks.min_max - chunks.min_min + 1 == 2)*/
+		else 
 		{
-			ft_rrb(stack_b);
-			ft_rrb(stack_b);
-			if (stack_b->top->value < stack_b->top->next->value)
-				ft_sb(stack_b);
-			ft_pa(stack_a, stack_b);
-			ft_pa(stack_a, stack_b);
+			ft_rra(stack_a);
+			ft_rra(stack_a);
+			if (ft_compare_top_max(stack_a))
+				ft_sa(stack_a);
+			if (stack_a->bottom->value < stack_a->top->value)
+				ft_rra(stack_a);
+			else if (stack_a->bottom->value > stack_a->top->value
+				&& stack_a->bottom->value < stack_a->top->next->value)
+			{
+				ft_rra(stack_a);
+				ft_sa(stack_a);
+			}
+			else if (stack_a->bottom->value > stack_a->top->next->value)
+			{
+				
+				ft_rra(stack_a);
+				ft_sa(stack_a);
+				ft_ra(stack_a);
+				ft_sa(stack_a);
+				ft_rra(stack_a);
+			}
 		}
+
+		ft_rra_m(stack_b, chunks.min_max - chunks.min_min + 1, ft_rrb);
+		ft_move_three_or_less(stack_a, stack_b, chunks.min_max - chunks.min_min + 1);
 	}
 
 	/* while (i < div + (size & 1 || size & 2))
@@ -579,91 +679,102 @@ void ft_skip_treed(t_stack *stack, int div)
 		ft_rrb(stack);
 }
 
-void ft_set_chunks(t_chunks *chunks, t_pos pos)
+t_chunks ft_set_chunks(t_chunks chunks, t_pos pos)
 {
     int div;
 	int shift;
+	int s;
 	t_chunks tmp;
 
-	tmp = *chunks;
+	tmp = chunks;
 	if (pos == TOP_A)
-	{
-		div = (tmp.max_max - tmp.max_min + 1) / 3;
+	{	
+		s = tmp.max_max - tmp.max_min + 1;
+		div = (s) / 3;
 		shift = tmp.max_min;
-		chunks->min_min = shift;
-		chunks->min_max = shift + div - 1;
-		chunks->mid_min = shift + div;
-		if (chunks->size % 3 == 2)
-			chunks->mid_max = shift + 2 * div;
+		chunks.min_min = shift;
+		chunks.min_max = shift + div - 1;
+		chunks.mid_min = shift + div;
+		if (s % 3 == 2)
+			chunks.mid_max = shift + 2 * div;
 		else
-			chunks->mid_max = shift + 2 * div - 1;
-		if (chunks->size % 3 == 2)
-			chunks->max_min = shift + 2 * div + 1;
+			chunks.mid_max = shift + 2 * div - 1;
+		if (s % 3 == 2)
+			chunks.max_min = shift + 2 * div + 1;
 		else
-			chunks->max_min = shift + 2 * div;
-		chunks->max_max = tmp.max_max;
+			chunks.max_min = shift + 2 * div;
+		chunks.max_max = tmp.max_max;
 	}
 	if (pos == TOP_B)
 	{
-		div = (tmp.mid_max - tmp.mid_min + 1) / 3;
+		if (tmp.mid_max == tmp.mid_min)
+		{
+			chunks.min_min = tmp.mid_min;
+			chunks.min_max = tmp.mid_max;
+			chunks.mid_min = tmp.mid_min;
+			chunks.mid_max = tmp.mid_max;
+			chunks.max_min = tmp.mid_min;
+			chunks.max_max = tmp.mid_max;
+			return (chunks);
+		}
+		s = tmp.mid_max - tmp.mid_min + 1;
+		div = (s) / 3;
 		shift = tmp.mid_min;
-		chunks->min_min = shift;
-		chunks->min_max = shift + div - 1;
-		chunks->mid_min = shift + div;
-		if (chunks->size % 3 == 2)
-			chunks->mid_max = shift + 2 * div;
+		chunks.min_min = shift;
+		chunks.min_max = shift + div - 1;
+		chunks.mid_min = shift + div;
+		if (s % 3 == 2)
+			chunks.mid_max = shift + 2 * div;
 		else
-			chunks->mid_max = shift + 2 * div - 1;
-		if (chunks->size % 3 == 2)
-			chunks->max_min = shift + 2 * div + 1;
+			chunks.mid_max = shift + 2 * div - 1;
+		if (s % 3 == 2)
+			chunks.max_min = shift + 2 * div + 1;
 		else
-			chunks->max_min = shift + 2 * div;
-		chunks->max_max = tmp.mid_max;
+			chunks.max_min = shift + 2 * div;
+		chunks.max_max = tmp.mid_max;
 	}
 	if (pos == BOTTOM_B)
 	{
-		div = (tmp.min_max - tmp.min_min + 1) / 3;
+		s = tmp.min_max - tmp.min_min + 1;
+		div = (s) / 3;
 		shift = tmp.min_min;
-		chunks->min_min = shift;
-		chunks->min_max = shift + div - 1;
-		chunks->mid_min = shift + div;
-		if (chunks->size % 3 == 2)
-			chunks->mid_max = shift + 2 * div;
+		chunks.min_min = shift;
+		chunks.min_max = shift + div - 1;
+		chunks.mid_min = shift + div;
+		if (s % 3 == 2)
+			chunks.mid_max = shift + 2 * div;
 		else
-			chunks->mid_max = shift + 2 * div - 1;
-		if (chunks->size % 3 == 2)
-			chunks->max_min = shift + 2 * div + 1;
+			chunks.mid_max = shift + 2 * div - 1;
+		if (s % 3 == 2)
+			chunks.max_min = shift + 2 * div + 1;
 		else
-			chunks->max_min = shift + 2 * div;
-		chunks->max_max = tmp.min_max;
+			chunks.max_min = shift + 2 * div;
+		chunks.max_max = tmp.min_max;
 	}
+	return (chunks);
 }
 void ft_random_sort(t_stack *stack_a, t_stack *stack_b, t_chunks chunks, t_pos pos)
 {	
 	int count = 0;
 	t_chunks tmp;
-	tmp = chunks;
-	while (count < chunks.max_max - chunks.min_min + 1)
+	tmp = ft_set_chunks(chunks, pos);
+	int mx = tmp.max_max - tmp.min_min + 1;
+	while (count < mx)
 	{
-		// if(stack_a->size <= 3)
-		// 	break;
+
 		if (pos == TOP_A)
-			ft_set_mmd(stack_a, stack_b, chunks);
-		if (pos == TOP_B)
-			ft_set_mmd_mid(stack_a, stack_b, chunks);
+			ft_set_mmd(stack_a, stack_b, tmp);
+		if (pos == TOP_B || pos == BOTTOM_B)
+			ft_set_mmd_mid(stack_a, stack_b, tmp);
 		count++;
 	}
-	if (chunks.max_max - chunks.min_min + 1 <= 3)
-	{
-		ft_return(stack_a, stack_b, chunks, pos);
-		return ;
-	}
+	if (mx <= 9)
+		return (ft_return(stack_a, stack_b, tmp, pos));
 
-	ft_set_chunks(&tmp, TOP_A);
 	ft_random_sort(stack_a, stack_b, tmp, TOP_A);
-	tmp = chunks;
-	ft_set_chunks(&tmp, TOP_B);
 	ft_random_sort(stack_a, stack_b, tmp, TOP_B);
+	ft_rra_m(stack_b, tmp.min_max - tmp.min_min + 1, ft_rrb);
+	ft_random_sort(stack_a, stack_b, tmp, BOTTOM_B);
 
 }
 void __new_ft_random_sort(t_stack *stack_a, t_stack *stack_b)
@@ -672,7 +783,6 @@ void __new_ft_random_sort(t_stack *stack_a, t_stack *stack_b)
 	ft_memset(&chunks, 0, sizeof(t_chunks));
 	chunks.max_min = 0;
 	chunks.max_max = stack_a->size - 1;
-	ft_set_chunks(&chunks, TOP_A);
 	ft_random_sort(stack_a, stack_b, chunks, TOP_A);
 } 
 
@@ -686,7 +796,6 @@ void radix_sort(t_stack *stack_a, t_stack *stack_b, int bit)
 	{
 		return ;
 	}
-
 	i = 0;
 	while (i < c)
 	{
@@ -706,8 +815,30 @@ void radix_sort(t_stack *stack_a, t_stack *stack_b, int bit)
 	radix_sort(stack_a, stack_b, bit << 1);
 }
 
+t_dlist *ft_get_max_node(t_stack *stack)
+{
+	t_dlist	*current;
+	t_dlist	*max_node;
+
+	if (!stack || stack->size == 0)
+		return (NULL);
+	current = stack->top;
+	max_node = current;
+	while (current)
+	{
+		if (current->value > max_node->value)
+			max_node = current;
+		current = current->next;
+	}
+	return (max_node);
+}
+
+t_dlist *max_node;
+
 void	ft_sort(t_stack *stack_a, t_stack *stack_b)
 {
+	max_node = ft_get_max_node(stack_a);
+
 	if (ft_check_is_sorted(stack_a))
 		return ;
 	if (stack_a->size <= 3)
@@ -716,7 +847,7 @@ void	ft_sort(t_stack *stack_a, t_stack *stack_b)
 		return (ft_sort_les_eq5(stack_a, stack_b));
 	// _brootforce_ft_sort(stack_a, stack_b);
 	// ft_sort_les_eq5(stack_a, stack_b);
-	// __new_ft_random_sort(stack_a, stack_b);
-	radix_sort(stack_a, stack_b, 1);
+	__new_ft_random_sort(stack_a, stack_b);
+	// radix_sort(stack_a, stack_b, 1);
 }
 
