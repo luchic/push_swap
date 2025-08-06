@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/06 16:05:40 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/06 20:20:31 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -835,7 +835,7 @@ t_dlist *ft_get_max_node(t_stack *stack)
 
 t_dlist *max_node;
 
-void	ft_sort(t_stack *stack_a, t_stack *stack_b)
+void	_verbose_ft_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	max_node = ft_get_max_node(stack_a);
 
@@ -851,3 +851,229 @@ void	ft_sort(t_stack *stack_a, t_stack *stack_b)
 	// radix_sort(stack_a, stack_b, 1);
 }
 
+// TODO: Delete previase one 
+// ===================== Utils funcitons =================
+int ft_get_top(t_stack *stack)
+{
+	if (!stack || stack->size == 0)
+		return (-1);
+	return (stack->top->value);
+}
+
+// ===================== Move Values  =================
+int	ft_move_top_a(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
+{
+	int	fir;
+
+	fir = ft_get_top(stack_a);
+	if (fir == -1)
+		return (-1);
+	if (fir >= chunks.max.min && fir <= chunks.max.max)
+		ft_ra(stack_a);
+	else if (fir >= chunks.mid.min && fir <= chunks.mid.max)
+		ft_pb(stack_a, stack_b);
+	else if (fir >= chunks.min.min && fir <= chunks.min.max)
+	{
+		ft_pb(stack_a, stack_b);
+		if (stack_b->size > 1)
+			ft_rb(stack_b);
+	}
+	return (0);
+}
+
+int ft_move_top_b(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
+{
+	int fir;
+
+
+	fir = ft_get_top(stack_b);
+	if (fir == -1)
+		return (-1);
+	if (fir >= chunks.max.min && fir <= chunks.max.max)
+		ft_pa(stack_a, stack_b);
+	else if (fir >= chunks.mid.min && fir <= chunks.mid_max)
+	{
+		ft_pa(stack_a, stack_b);
+		if (stack_a->size > 1)
+			ft_ra(stack_a);
+	}
+	else if (fir >= chunks.min_min && fir <= chunks.min_max)
+		ft_rb(stack_b);
+	return (0);
+}
+int ft_move_bottom_a(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
+{
+	int fir;
+
+	// if (chunks.mid_max - chunks.mid_min < 3)
+	// 	return 1;
+	fir = stack_b->bottom->value;
+
+	if (fir >= chunks.max_min && fir <= chunks.max_max)
+		ft_pa(stack_a, stack_b);
+	else if (fir >= chunks.mid_min && fir <= chunks.mid_max)
+	{	ft_pa(stack_a, stack_b);
+		if (stack_a->size > 1)
+			ft_ra(stack_a);
+	}
+	else if (fir >= chunks.min_min && fir <= chunks.min_max)
+		ft_rb(stack_b);
+	return (0);
+}
+
+int ft_move_bottom_b(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
+{
+	int fir;
+
+	// if (chunks.mid_max - chunks.mid_min < 3)
+	// 	return 1;
+	fir = stack_b->bottom->value;
+	ft_rra(stack_a);
+	if (fir >= chunks.mid_min && fir <= chunks.mid_max)
+		ft_pb(stack_a, stack_b);
+	else if (fir >= chunks.min_min && fir <= chunks.min_max)
+	{
+		ft_pb(stack_a, stack_b);
+		if (stack_b->size > 1)
+			ft_rb(stack_a);
+	}
+	return (0);
+}
+
+// ===================== New Chunks Functions =====================
+
+void set_position(t_chunks *from, t_chunks *to, t_type type)
+{
+	to->max.pos = TOP_A;
+	if (to->mid.pos == TOP_B)
+		to->mid.pos = BOTTOM_A;
+	else
+		to->mid.pos = TOP_B;
+	to->min.pos = BOTTOM_B;
+}
+
+int set_value(int *div, int *shift, t_chunks *chunks, t_type type)
+{
+	int size;
+
+	if (type == MIN)
+	{
+		size = chunks->min.max - chunks->min.min + 1; 
+		*div = size / 3;
+		*shift = chunks->min.min;
+	}
+	else if (type == MID)
+	{
+		size = chunks->mid.max - chunks->mid.min + 1; 
+		*div = size / 3;
+		*shift = chunks->mid.min;
+	}
+	else
+	{
+		size = chunks->max.max - chunks->max.min + 1; 
+		*div = size / 3;
+		*shift = chunks->max.min;
+	}
+	return (size);
+}
+t_chunks ft_set_chunks_updated(t_chunks chunks, t_type type)
+{
+    int div;
+	int shift;
+	int size;
+	t_chunks tmp;
+
+	size = set_value(&div, &shift, &chunks, type);
+	set_position(&chunks, &tmp, type);
+	if (type == MIN)
+		tmp.max.max = chunks.min.max;
+	else if (type == MID)
+		tmp.max.max = chunks.mid.max;
+	else
+		tmp.max.max = chunks.max.max;
+	tmp.min.min = shift;
+	tmp.min.max = shift + div - 1;
+	tmp.mid.min = shift + div;
+	if (size % 3 == 2)
+		tmp.mid.max = shift + 2 * div;
+	else
+		tmp.mid.max = shift + 2 * div - 1;
+	if (size % 3 == 2)
+		tmp.max.min = shift + 2 * div + 1;
+	else
+		tmp.max.min = shift + 2 * div;
+	return (tmp);
+}
+
+int ft_get_size_chunk(const t_chunks *chunks, t_type type)
+{
+	int size_chunk;
+
+	if (type == MIN)
+		size_chunk = chunks->min.max - chunks->min.min + 1;
+	else if (type == MID)
+		size_chunk = chunks->mid.max - chunks->mid.min + 1;
+	else
+		size_chunk = chunks->max.max - chunks->max.min + 1;
+	return (size_chunk);
+}
+
+void ft_move_to_position(t_stack *stack_a, t_stack *stack_b, t_chunks chunks, t_type type)
+{
+
+}
+
+
+void ft_split_chnks(t_stack *stack_a, t_stack *stack_b, t_chunks *chunks, t_type type)
+{
+	int operations;
+	int count;
+
+	operations = ft_get_size_chunk(chunks, type);
+	count = 0;
+	while (count < operations)
+	{
+		count++;
+	}
+}
+
+
+
+void sort_core(t_stack *stack_a, t_stack *stack_b, t_chunks chunks, t_type type)
+{
+	int div;
+	int shift;
+	int size;
+	t_chunks tmp;
+
+	tmp = ft_set_chunks_updated(chunks, type);
+	ft_split_chnks(stack_a, stack_b, &tmp, type);
+
+	if (ft_get_size_chunk(&tmp, type) <= 3)
+		return ;
+
+
+	sort_core(stack_a, stack_b, tmp, MAX);
+	sort_core(stack_a, stack_b, tmp, MID);
+	sort_core(stack_a, stack_b, tmp, MIN);
+}
+
+void ft_chunk_sort( t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
+{
+	t_chunks chunks;
+
+	chunks.max.min = 0;
+	chunks.max.max = stack_a->size - 1;
+	chunks.max.pos = TOP_A;
+	sort_core(stack_a, stack_b, chunks, MAX);
+}
+
+void	ft_sort(t_stack *stack_a, t_stack *stack_b)
+{
+	if (ft_check_is_sorted(stack_a))
+		return ;
+	if (stack_a->size <= 3)
+		return (ft_sort_les_eq3(stack_a));
+	else if (stack_a->size <= 5)
+		return (ft_sort_les_eq5(stack_a, stack_b));
+}
