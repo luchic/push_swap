@@ -3,10 +3,14 @@ NAME = push_swap
 
 # folder with src code
 SRC = src
+SORT = $(SRC)/sort
+STACK = $(SRC)/stack
 
 ## All Src files
 # SRC_FILES = $(wildcard $(SRC)/*.c)
-SRC_FILES = $(wildcard *.c)
+SRC_FILES = $(wildcard $(SRC)/*.c)
+SRC_FILES += $(wildcard $(SORT)/*.c)
+SRC_FILES += $(wildcard $(STACK)/*.c)
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Libft
@@ -52,4 +56,5 @@ clean :
 	rm -f $(TOUT)
 	make -C $(DLIBFT) fclean
 
-.PHONY: all clean fclean re bonus debug
+.PHONY: all clean fclean re debug
+
