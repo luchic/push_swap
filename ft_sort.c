@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/08 15:53:48 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/08 17:44:52 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,77 @@ int ft_get_min(t_stack *stack)
 	}
 	return (min);
 }
+// TODO: Delete previase one 
+// ===================== Utils funcitons =================
+int ft_get_top(t_stack *stack)
+{
+	if (!stack || stack->size == 0)
+		return (-1);
+	return (stack->top->value);
+}
+
+int ft_get_bottom(t_stack *stack)
+{
+	if (!stack || stack->size == 0)
+		return (-1);
+	return (stack->bottom->value);
+}
+
+t_dlist *ft_get_top_node(t_stack *stack)
+{
+	if (!stack || stack->size == 0)
+		return (NULL);
+	return (stack->top);
+}
+
+t_dlist *ft_get_nnode(t_stack *stack, int n)
+{
+	t_dlist *current;
+	int i;
+
+	if (!stack || stack->size == 0 || n < 0 || n >= stack->size)
+		return (NULL);
+	current = stack->top;
+	i = 0;
+	while (current && i < n)
+	{
+		current = current->next;
+		i++;
+	}
+	return (current);
+}
+
+int ft_get_nel(t_stack *stack, int n)
+{
+	t_dlist *cur;
+	cur = ft_get_nnode(stack, n);
+	if (!cur)
+		return (-1);
+	return (cur->value);
+}
+
+int ft_get_size_chunk(const t_chunks *chunks, t_type type)
+{
+	int size_chunk;
+
+	if (type == MIN)
+		size_chunk = chunks->min.max - chunks->min.min + 1;
+	else if (type == MID)
+		size_chunk = chunks->mid.max - chunks->mid.min + 1;
+	else
+		size_chunk = chunks->max.max - chunks->max.min + 1;
+	return (size_chunk);
+}
+
+int ft_get_size_all_chunks(const t_chunks *chunks)
+{
+	int size;
+
+	size = ft_get_size_chunk(chunks, MIN);
+	size += ft_get_size_chunk(chunks, MID);
+	size += ft_get_size_chunk(chunks, MAX);
+	return (size);
+}
 
 // =================== sorting tails ==============
 int ft_check_sorted_top(t_stack *stack, int size, int ascending)
@@ -275,7 +346,6 @@ void ft_sort_three_tail(t_stack *stack_a, t_stack *stack_b)
 		ft_rra(stack_a);
 		ft_pa(stack_a, stack_b);
 	}
-
 }
 
 void ft_move_thre_mid_back(t_stack *stack_a, t_stack *stack_b)
@@ -340,66 +410,9 @@ void ft_move_mid_chunk_back(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
 	ft_move_thre_mid_back(stack_a, stack_b);
 }
 
-// ==================== FT_RETURN ==
+// ==================== FT_RETURN =====================
 void ft_return_chunks(t_stack *stack_a, t_stack *stack_b, const t_chunks *chunks, t_type type)
 {
-	if (type == MAX)
-		ft_sort_max_chunk(stack_a, stack_b, *chunks);
-	else if (type == MID)
-	{
-		
-	}
-
-}
-
-
-// TODO: Delete previase one 
-// ===================== Utils funcitons =================
-int ft_get_top(t_stack *stack)
-{
-	if (!stack || stack->size == 0)
-		return (-1);
-	return (stack->top->value);
-}
-
-int ft_get_bottom(t_stack *stack)
-{
-	if (!stack || stack->size == 0)
-		return (-1);
-	return (stack->bottom->value);
-}
-
-t_dlist *ft_get_top_node(t_stack *stack)
-{
-	if (!stack || stack->size == 0)
-		return (NULL);
-	return (stack->top);
-}
-
-t_dlist *ft_get_nnode(t_stack *stack, int n)
-{
-	t_dlist *current;
-	int i;
-
-	if (!stack || stack->size == 0 || n < 0 || n >= stack->size)
-		return (NULL);
-	current = stack->top;
-	i = 0;
-	while (current && i < n)
-	{
-		current = current->next;
-		i++;
-	}
-	return (current);
-}
-
-int ft_get_nel(t_stack *stack, int n)
-{
-	t_dlist *cur;
-	cur = ft_get_nnode(stack, n);
-	if (!cur)
-		return (-1);
-	return (cur->value);
 }
 
 // ===================== Move Values  =================
@@ -547,28 +560,7 @@ t_chunks ft_set_chunks_updated(t_chunks chunks, t_type type)
 	return (tmp);
 }
 
-int ft_get_size_chunk(const t_chunks *chunks, t_type type)
-{
-	int size_chunk;
 
-	if (type == MIN)
-		size_chunk = chunks->min.max - chunks->min.min + 1;
-	else if (type == MID)
-		size_chunk = chunks->mid.max - chunks->mid.min + 1;
-	else
-		size_chunk = chunks->max.max - chunks->max.min + 1;
-	return (size_chunk);
-}
-
-int ft_get_size_all_chunks(const t_chunks *chunks)
-{
-	int size;
-
-	size = ft_get_size_chunk(chunks, MIN);
-	size += ft_get_size_chunk(chunks, MID);
-	size += ft_get_size_chunk(chunks, MAX);
-	return (size);
-}
 
 void ft_move_to_position(t_stack *stack_a, t_stack *stack_b, t_chunks chunks, t_type type)
 {
@@ -608,14 +600,14 @@ void sort_core(t_stack *stack_a, t_stack *stack_b, t_chunks chunks, t_type type)
 
 	if (ft_get_size_chunk(&chunks, type) <= 3)
 	{
-		if (type == MAX)
-			ft_return_chunks(stack_a, stack_b, &chunks, type);
-		else if (type == MID && chunks.mid.pos == TOP_B)
-			ft_return_chunks(stack_a, stack_b, &chunks, type);
-		else if (type == MID && chunks.mid.pos == BOTTOM_A)
-			ft_return_chunks(stack_a, stack_b, &chunks, type);
-		else if (type == MIN)
-			ft_return_chunks(stack_a, stack_b, &chunks, type);
+		// if (type == MAX)
+		// 	ft_return_chunks(stack_a, stack_b, &chunks, type);
+		// else if (type == MID && chunks.mid.pos == TOP_B)
+		// 	ft_return_chunks(stack_a, stack_b, &chunks, type);
+		// else if (type == MID && chunks.mid.pos == BOTTOM_A)
+		// 	ft_return_chunks(stack_a, stack_b, &chunks, type);
+		// else if (type == MIN)
+		// 	ft_return_chunks(stack_a, stack_b, &chunks, type);
 		return ;
 	}
 
