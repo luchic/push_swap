@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:28:34 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:56:35 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:32:58 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,16 @@ void	ft_move_max_back(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
 
 void	ft_move_mid_back(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
 {
-	int	size;
+	int		size;
+	t_pos	pos;
 
+	pos = ft_get_position(stack_a, stack_b, &chunks, MID);
 	size = ft_get_size_chunk(&chunks, MID);
-	if (size == 1 && chunks.mid.pos == TOP_B)
+	if (size == 1 && pos == TOP_B)
 		return (ft_pa(stack_a, stack_b));
-	else if (size == 1 && chunks.mid.pos == BOTTOM_A)
+	else if (size == 1 && pos == BOTTOM_A)
 		return (ft_rra(stack_a));
-	if (chunks.mid.pos == TOP_B)
+	if (pos == TOP_B)
 		ft_move_mid_topb_back(stack_a, stack_b, size);
 	else
 		ft_move_mid_bottoma_back(stack_a, stack_b, size);

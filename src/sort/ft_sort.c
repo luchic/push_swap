@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 16:13:27 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:35:45 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 #include "ft_stack_operation.h"
 #include "ft_utils.h"
 #include "libft.h"
-
-void	ft_skip_stack(t_stack *stack, int n, void (*ft_r)(t_stack *))
-{
-	if (n < 0)
-		return ;
-	while (n--)
-		ft_r(stack);
-}
 
 void	sort_core(t_stack *stack_a, t_stack *stack_b, t_chunks chunks,
 		t_type type)
@@ -32,13 +24,12 @@ void	sort_core(t_stack *stack_a, t_stack *stack_b, t_chunks chunks,
 	t_chunks	tmp;
 
 	if (type == MIN && stack_b->size != ft_get_size_chunk(&chunks, MIN))
-		ft_skip_stack(stack_b, ft_get_size_chunk(&chunks, MIN), ft_rrb);
+		ft_shift_stack(stack_b, ft_get_size_chunk(&chunks, MIN), ft_rrb);
 	if (ft_get_size_chunk(&chunks, type) <= 3)
 		return (ft_move_back(stack_a, stack_b, chunks, type));
 	tmp = ft_set_chunks_updated(chunks, type);
 	ft_split_chnks(stack_a, stack_b, &tmp, type);
-	if (type == MID && chunks.mid.pos == TOP_B || type == MIN)
-		tmp.mid.pos = BOTTOM_A;
+
 	sort_core(stack_a, stack_b, tmp, MAX);
 	sort_core(stack_a, stack_b, tmp, MID);
 	sort_core(stack_a, stack_b, tmp, MIN);

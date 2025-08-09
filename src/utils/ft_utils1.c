@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:40:36 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:53:33 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:35:21 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,13 @@ int	ft_is_sorted_top_dir(t_stack *stack, int n, int ascending)
 		i++;
 	}
 	return (1);
+}
+
+
+void	ft_shift_stack(t_stack *stack, int n, void (*ft_r)(t_stack *))
+{
+	if (n < 0)
+		return ;
+	while (n--)
+		ft_r(stack);
 }
