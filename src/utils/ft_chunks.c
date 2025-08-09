@@ -6,18 +6,11 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:21:38 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:55:52 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 20:15:17 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sort.h"
-
-static void	set_position(t_chunks *from, t_chunks *to, t_type type)
-{
-	to->max.pos = TOP_A;
-	to->mid.pos = TOP_B;
-	to->min.pos = BOTTOM_B;
-}
 
 static int	set_value(int *div, int *shift, t_chunks *chunks, t_type type)
 {
@@ -52,7 +45,6 @@ t_chunks	ft_set_chunks_updated(t_chunks chunks, t_type type)
 	t_chunks	tmp;
 
 	size = set_value(&div, &shift, &chunks, type);
-	set_position(&chunks, &tmp, type);
 	if (type == MIN)
 		tmp.max.max = chunks.min.max;
 	else if (type == MID)
