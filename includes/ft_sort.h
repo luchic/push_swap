@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:19 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/06 20:55:10 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 15:53:53 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,34 @@ typedef struct s_chunks
 }			t_chunks;
 
 void		ft_sort(t_stack *stack_a, t_stack *stack_b);
+void		ft_sort_les_eq3(t_stack *stack_a);
+void		ft_sort_les_eq5(t_stack *stack_a, t_stack *stack_b);
 
+int			ft_move_top_a(t_stack *stack_a, t_stack *stack_b, t_chunks chunks);
+int			ft_move_top_b(t_stack *stack_a, t_stack *stack_b, t_chunks chunks);
+int			ft_move_bottom_a(t_stack *stack_a, t_stack *stack_b,
+				t_chunks chunks);
+int			ft_move_bottom_b(t_stack *stack_a, t_stack *stack_b,
+				t_chunks chunks);
+void		ft_split_chnks(t_stack *stack_a, t_stack *stack_b, t_chunks *chunks,
+				t_type type);
+
+void		ft_move_mid_bottoma_back(t_stack *stack_a, t_stack *stack_b,
+				int size);
+
+void		ft_move_mid_topb_back(t_stack *stack_a, t_stack *stack_b, int size);
+
+void		ft_move_max_back(t_stack *stack_a, t_stack *stack_b,
+				t_chunks chunks);
+
+void		ft_move_mid_back(t_stack *stack_a, t_stack *stack_b,
+				t_chunks chunks);
+
+void		ft_move_min_back_three(t_stack *stack_a, t_stack *stack_b);
+
+void		ft_move_min_back(t_stack *stack_a, t_stack *stack_b,
+				t_chunks chunks);
+
+void		ft_move_back(t_stack *stack_a, t_stack *stack_b, t_chunks chunks,
+				t_type type);
 #endif

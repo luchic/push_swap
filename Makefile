@@ -5,12 +5,14 @@ NAME = push_swap
 SRC = src
 SORT = $(SRC)/sort
 STACK = $(SRC)/stack
+UTILS = $(SRC)/utils
 
 ## All Src files
 # SRC_FILES = $(wildcard $(SRC)/*.c)
 SRC_FILES = $(wildcard $(SRC)/*.c)
 SRC_FILES += $(wildcard $(SORT)/*.c)
 SRC_FILES += $(wildcard $(STACK)/*.c)
+SRC_FILES += $(wildcard $(UTILS)/*.c)
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Libft
