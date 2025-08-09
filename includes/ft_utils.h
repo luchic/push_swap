@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 14:32:06 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:53:46 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:36:21 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int			ft_compare_top_max(t_stack *stack);
 int			ft_compare_top_min(t_stack *stack);
 int			ft_find_min(t_stack *stack);
 void		ft_skip(t_stack *stack, int iter);
+void		ft_shift_stack(t_stack *stack, int n, void (*ft_r)(t_stack *));
 int			ft_is_max(t_stack *stack, int value);
 
 int			ft_get_max(t_stack *stack);
@@ -58,5 +59,6 @@ t_pos		ft_get_position(t_stack *stack_a, t_stack *stack_b,
 				t_chunks *chunks, t_type type);
 
 int			ft_is_sorted_top_dir(t_stack *stack, int n, int ascending);
+int			ft_get_bottom_nel(t_stack *stack, int n);
 
 #endif

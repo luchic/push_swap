@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:19 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:53:53 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:13:21 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,6 @@ typedef struct s_chunks
 	t_chunk	min;
 	t_chunk	mid;
 	t_chunk	max;
-	int		min_min;
-	int		min_max;
-	int		mid_min;
-	int		mid_max;
-	int		max_min;
-	int		max_max;
-	int		size;
 }			t_chunks;
 
 void		ft_sort(t_stack *stack_a, t_stack *stack_b);
