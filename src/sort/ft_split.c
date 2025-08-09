@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:24:41 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:56:04 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:26:57 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@
 void	ft_split_chnks(t_stack *stack_a, t_stack *stack_b, t_chunks *chunks,
 		t_type type)
 {
-	int operations;
-	int count;
-	t_pos pos;
+	int		operations;
+	int		count;
+	t_pos	pos;
 
 	operations = ft_get_size_all_chunks(chunks);
+	pos = ft_get_position_all_chunks(stack_a, stack_b, chunks);
 	count = 0;
-	if (type == MID || type == MAX)
-		pos = ft_get_position_all_chunks(stack_a, stack_b, chunks);
-
 	while (count < operations)
 	{
 		if (type == MAX && pos == TOP_A)

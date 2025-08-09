@@ -6,13 +6,30 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:26:14 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:55:26 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:31:18 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sort.h"
 #include "ft_stack.h"
 #include "ft_utils.h"
+
+static int	ft_check_position(t_stack *stack, int element, int size,
+		int from_top)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (from_top && ft_get_nel(stack, i) == element)
+			return (1);
+		if (!from_top && ft_get_bottom_nel(stack, i) == element)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 t_pos	ft_get_position_all_chunks(t_stack *stack_a, t_stack *stack_b,
 		t_chunks *chunks)
@@ -22,32 +39,13 @@ t_pos	ft_get_position_all_chunks(t_stack *stack_a, t_stack *stack_b,
 	int	i;
 	int	is_found;
 
-	is_found = 0;
 	element = chunks->mid.min;
 	size = ft_get_size_all_chunks(chunks);
-	i = 0;
-	while (i < size)
-	{
-		if (ft_get_nel(stack_b, i) == element)
-		{
-			is_found = 1;
-			break ;
-		}
-		i++;
-	}
-	if (is_found)
+	if (ft_check_position(stack_b, element, size, 1))
 		return (TOP_B);
-	i = 0;
-	while (i < size)
-	{
-		if (ft_get_nel(stack_a, i) == element)
-		{
-			is_found = 1;
-			break ;
-		}
-		i++;
-	}
-	if (is_found)
+	if (ft_check_position(stack_b, element, size, 0))
+		return (BOTTOM_B);
+	if (ft_check_position(stack_a, element, size, 1))
 		return (TOP_A);
 	return (BOTTOM_A);
 }
@@ -103,5 +101,7 @@ t_pos	ft_get_position(t_stack *stack_a, t_stack *stack_b, t_chunks *chunks,
 		return (ft_get_max_position(stack_a, chunks));
 	if (type == MID)
 		return (ft_get_mid_position(stack_b, chunks));
+	if (type == MIN)
+		return (BOTTOM_B);
 	return (TOP_A);
 }

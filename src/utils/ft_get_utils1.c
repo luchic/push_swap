@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:50:56 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:55:39 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:20:14 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ int	ft_get_nel(t_stack *stack, int n)
 	t_dlist	*cur;
 
 	cur = ft_get_nnode(stack, n);
+	if (!cur)
+		return (-1);
+	return (cur->value);
+}
+
+int	ft_get_bottom_nel(t_stack *stack, int n)
+{
+	t_dlist	*cur;
+	int		size;
+
+	if (!stack || stack->size == 0 || n < 0 || n >= stack->size)
+		return (-1);
+	size = stack->size - 1 - n;
+	cur = ft_get_nnode(stack, size);
 	if (!cur)
 		return (-1);
 	return (cur->value);
