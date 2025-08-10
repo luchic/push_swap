@@ -6,29 +6,13 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 21:10:33 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/01 15:46:07 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 11:11:05 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-// static void	ft_free_chars(char **data, size_t len)
-// {
-// 	size_t	i;
-
-// 	if (!data)
-// 		return ;
-// 	i = 0;
-// 	while (i < len && data[i])
-// 	{
-// 		free(data[i]);
-// 		i++;
-// 	}
-// 	free(data);
-// }
-
-// TODO: add checking
 int	ft_check_data(char **data, int len)
 {
 	int	i;
@@ -109,33 +93,24 @@ int	ft_check_dublicate(int *array, int size)
 	return (0);
 }
 
-// TODO: this is return normal data of strings
-// TODO: It's better to return allread a array of ints
-int	ft_get_array(int **array, char **data, int len)
+static int	ft_fill_array(char **data, int *array, int ldata, int larray)
 {
 	int		i;
 	int		j;
-	int		size;
 	char	*str;
 
-	if (!array)
-		return (-1);
-	size = ft_size_data(data, len);
-	*array = ft_calloc(size, sizeof(int));
-	if (!*array)
-		return (-1);
-	i = 0;
+	i = -1;
 	j = 0;
-	while (i < len)
+	while (++i < ldata)
 	{
 		str = data[i];
 		while (*str)
 		{
-			while (*str == ' ' && j < size)
+			while (*str == ' ' && j < larray)
 				str++;
 			if (ft_isdigit(*str) || (*str == '-' && ft_isdigit(*(str + 1))))
 			{
-				(*array)[j++] = ft_atoi(str);
+				array[j++] = ft_atoi(str);
 				if (*str == '-')
 					str++;
 				while (ft_isdigit(*str))
@@ -144,7 +119,19 @@ int	ft_get_array(int **array, char **data, int len)
 			else if (*str)
 				str++;
 		}
-		i++;
 	}
+}
+
+int	ft_get_array(int **array, char **data, int len)
+{
+	int	size;
+
+	if (!array)
+		return (-1);
+	size = ft_size_data(data, len);
+	*array = ft_calloc(size, sizeof(int));
+	if (!*array)
+		return (-1);
+	ft_fill_array(data, *array, len, size);
 	return (size);
 }
