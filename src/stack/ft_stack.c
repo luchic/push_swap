@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:44:21 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 14:52:38 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:10:10 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static t_dlist	*ft_setup_dlist(int *array, size_t len)
 {
 	t_dlist	*head;
 	t_dlist	*new_head;
-	size_t	i;
 
 	head = NULL;
 	while (len--)

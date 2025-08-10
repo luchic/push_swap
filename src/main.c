@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 18:12:25 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 15:03:37 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 15:47:29 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "ft_utils.h"
 #include "libft.h"
 #include "ft_parse.h"
+#include "ft_normalize.h"
 #include <stdlib.h>
 
 // void	ft_print_data(t_stack *stack)
@@ -62,7 +63,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (ft_error_message(), 0);
-	if (!ft_validate_argsg(argv + 1, argc - 1))
+	if (!ft_validate_args(argv + 1, argc - 1))
 		return (ft_error_message(), 0);
 	arra = NULL;
 	size = ft_get_array(&arra, argv + 1, argc - 1);

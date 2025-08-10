@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:28:34 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 15:47:15 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:09:54 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft_stack_operation.h"
 #include "ft_utils.h"
 
-static void	ft_return_topa(t_stack *stack_a, t_stack *stack_b, t_type type,
+static void	ft_return_topa(t_stack *stack_a, t_type type,
 		t_chunks chunks)
 {
 	int	size;
@@ -109,7 +109,7 @@ void	ft_move_back(t_stack *stack_a, t_stack *stack_b, t_chunks chunks,
 
 	pos = ft_get_position(stack_a, stack_b, &chunks, type);
 	if (pos == TOP_A)
-		ft_return_topa(stack_a, stack_b, type, chunks);
+		ft_return_topa(stack_a, type, chunks);
 	else if (pos == TOP_B)
 		ft_return_topb(stack_a, stack_b, type, chunks);
 	else if (pos == BOTTOM_A)

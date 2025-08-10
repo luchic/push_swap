@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 15:35:52 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 15:59:59 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 static void	sort_core(t_stack *stack_a, t_stack *stack_b, t_chunks chunks,
 		t_type type)
 {
-	int			div;
-	int			shift;
-	int			size;
 	t_chunks	tmp;
 
 	if (type == MIN && stack_b->size != ft_get_size_chunk(&chunks, MIN))

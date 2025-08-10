@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:26:14 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 16:31:18 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:12:20 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ t_pos	ft_get_position_all_chunks(t_stack *stack_a, t_stack *stack_b,
 {
 	int	element;
 	int	size;
-	int	i;
-	int	is_found;
 
 	element = chunks->mid.min;
 	size = ft_get_size_all_chunks(chunks);
