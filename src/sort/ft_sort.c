@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 17:35:45 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/09 20:29:57 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	ft_chunk_sort(t_stack *stack_a, t_stack *stack_b)
 
 	chunks.max.min = 0;
 	chunks.max.max = stack_a->size - 1;
-	chunks.max.pos = TOP_A;
 	sort_core(stack_a, stack_b, chunks, MAX);
 }
 
