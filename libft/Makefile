@@ -6,7 +6,7 @@
 #    By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/07 13:35:53 by nluchini          #+#    #+#              #
-#    Updated: 2025/07/30 15:23:48 by nluchini         ###   ########.fr        #
+#    Updated: 2025/08/10 18:57:22 by nluchini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ LIBFT_CORE_FILES =	ft_atoi.c \
 					ft_strlen.c \
 					ft_strmapi.c \
 					ft_strncmp.c \
+					ft_strcmp.c \
 					ft_strnstr.c \
 					ft_strrchr.c \
 					ft_strtrim.c \
