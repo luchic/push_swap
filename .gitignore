@@ -5,5 +5,4 @@ tests/
 *.dSYM/
 *.o
 *.a
-push_swap
 checker_Mac
