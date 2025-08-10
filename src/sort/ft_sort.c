@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 20:29:57 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 15:35:52 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft_utils.h"
 #include "libft.h"
 
-void	sort_core(t_stack *stack_a, t_stack *stack_b, t_chunks chunks,
+static void	sort_core(t_stack *stack_a, t_stack *stack_b, t_chunks chunks,
 		t_type type)
 {
 	int			div;
@@ -35,7 +35,7 @@ void	sort_core(t_stack *stack_a, t_stack *stack_b, t_chunks chunks,
 	sort_core(stack_a, stack_b, tmp, MIN);
 }
 
-void	ft_chunk_sort(t_stack *stack_a, t_stack *stack_b)
+static void	ft_chunk_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	t_chunks	chunks;
 
@@ -49,8 +49,8 @@ void	ft_sort(t_stack *stack_a, t_stack *stack_b)
 	if (ft_check_is_sorted(stack_a))
 		return ;
 	if (stack_a->size <= 3)
-		return (ft_sort_les_eq3(stack_a));
+		return (ft_sort_less3(stack_a));
 	else if (stack_a->size <= 5)
-		return (ft_sort_les_eq5(stack_a, stack_b));
+		return (ft_sort_less5(stack_a, stack_b));
 	ft_chunk_sort(stack_a, stack_b);
 }

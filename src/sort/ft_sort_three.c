@@ -6,15 +6,16 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:36:56 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:56:08 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 15:21:55 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_sort.h"
+
 #include "ft_stack_operation.h"
+#include "ft_def.h"
 #include "ft_utils.h"
 
-void	ft_sort_les_eq3(t_stack *stack_a)
+void	ft_sort_less3(t_stack *stack_a)
 {
 	if (stack_a->size == 1)
 		return ;

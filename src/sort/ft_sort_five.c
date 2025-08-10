@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:39:29 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:56:14 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 15:35:48 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_merg_sorted_tail_4(t_stack *stack_a, t_stack *stack_b)
 	}
 }
 
-void	ft_sort_les_eq5(t_stack *stack_a, t_stack *stack_b)
+void	ft_sort_less5(t_stack *stack_a, t_stack *stack_b)
 {
 	int	index;
 
@@ -44,7 +44,7 @@ void	ft_sort_les_eq5(t_stack *stack_a, t_stack *stack_b)
 		ft_skip(stack_a, index);
 		ft_pb(stack_a, stack_b);
 	}
-	ft_sort_les_eq3(stack_a);
+	ft_sort_less3(stack_a);
 	ft_pa(stack_a, stack_b);
 	if (stack_b->size == 1)
 		ft_pa(stack_a, stack_b);

@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:28:34 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 20:20:59 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 15:47:15 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_return_topa(t_stack *stack_a, t_stack *stack_b, t_type type,
 	int	size;
 
 	if (stack_a->size <= 3)
-		return (ft_sort_les_eq3(stack_a));
+		return (ft_sort_less3(stack_a));
 	size = ft_get_size_chunk(&chunks, type);
 	if (size == 2 && ft_compare_top_max(stack_a))
 		return (ft_sa(stack_a));
