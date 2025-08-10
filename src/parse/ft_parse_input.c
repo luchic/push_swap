@@ -6,13 +6,13 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 11:29:17 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 13:49:31 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 14:58:52 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_check_data(char **data, int len)
+int	ft_validate_args(char **data, int len)
 {
 	int	i;
 	int	j;
