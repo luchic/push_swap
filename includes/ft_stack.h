@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 15:39:53 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/30 20:52:44 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 15:48:47 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,10 @@
 
 # include <stddef.h>
 
-typedef struct s_dlist
-{
-	int				value;
-	struct s_dlist	*next;
-	struct s_dlist	*prev;
-}					t_dlist;
-
-typedef struct s_stack
-{
-	t_dlist			*top;
-	t_dlist			*bottom;
-	int				size;
-}					t_stack;
+# include "ft_def.h"
 
 t_stack	*ft_init_stack(int *array, size_t len);
+void	ft_free_dlist(t_dlist *head);
+void	ft_free_stack(t_stack *stack);
+
 #endif
