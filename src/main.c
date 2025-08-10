@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 18:12:25 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 10:54:32 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 14:59:06 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	ft_start(int *array, int size)
 
 	stack_a = ft_init_stack(array, size);
 	if (!stack_a)
-		return (ft_error_message(), 0);
+		return (ft_error_message());
 	stack_b = ft_init_stack(NULL, 0);
 	if (!stack_b)
-		return (ft_error_message(), ft_free_stack(stack_a), 0);
+		return (ft_error_message(), ft_free_stack(stack_a));
 	ft_sort(stack_a, stack_b);
 	ft_free_stack(stack_b);
 	ft_free_stack(stack_a);
@@ -60,6 +60,8 @@ int	main(int argc, char **argv)
 	int	size;
 
 	if (argc < 2)
+		return (ft_error_message(), 0);
+	if (!ft_validate_args(argv + 1, argc - 1))
 		return (ft_error_message(), 0);
 	arra = NULL;
 	size = ft_get_array(&arra, argv + 1, argc - 1);
