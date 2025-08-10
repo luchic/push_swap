@@ -6,64 +6,72 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 18:12:25 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/03 15:18:29 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 10:54:32 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_sort.h"
 #include "ft_stack.h"
 #include "ft_stack_operation.h"
-#include "ft_sort.h"
 #include "ft_utils.h"
+#include "libft.h"
 #include <stdlib.h>
 
-void ft_print_data(t_stack *stack)
-{
-	t_dlist *current;
+// void	ft_print_data(t_stack *stack)
+// {
+// 	t_dlist	*current;
 
-	if (!stack || stack->size == 0)
-		return ;
-	current = stack->top;
-	while (current)
-	{
-		ft_printf("%d ", current->value);
-		current = current->next;
-	}
-	ft_printf("\n");
-}
+// 	if (!stack || stack->size == 0)
+// 		return ;
+// 	current = stack->top;
+// 	while (current)
+// 	{
+// 		ft_printf("%d ", current->value);
+// 		current = current->next;
+// 	}
+// 	ft_printf("\n");
+// }
 
-void ft_error_message()
+void	ft_error_message(void)
 {
 	ft_printf("Error\n");
 }
 
-int main(int argc, char **argv)
+void	ft_start(int *array, int size)
 {
-	// Example usage of ft_printf
-	if (argc < 2)
-		return (ft_error_message(), 1);
+	t_stack	*stack_a;
+	t_stack	*stack_b;
 
-	int *arra = NULL; 
-	int size = ft_get_array(&arra, argv + 1, argc - 1);
-	if (!arra)
-		return (ft_error_message(), 1);
-		
-	if (ft_check_dublicate(arra, size))
-		return (ft_error_message(), free(arra), 1);
-	
-	int *norm = ft_normalize(arra, size);
-	if(!norm)
-		return (ft_error_message(), free(arra), 1);
-
-	free(arra);
-	t_stack *stack_a = ft_init_stack(norm, size);
-	t_stack *stack_b = ft_init_stack(NULL, 0);
-
-	// ft_printf("Before sorting:\n");
-	// ft_print_data(stack_a);
+	stack_a = ft_init_stack(array, size);
+	if (!stack_a)
+		return (ft_error_message(), 0);
+	stack_b = ft_init_stack(NULL, 0);
+	if (!stack_b)
+		return (ft_error_message(), ft_free_stack(stack_a), 0);
 	ft_sort(stack_a, stack_b);
-	// ft_printf("After sorting:\n");
-	// ft_print_data(stack_a);
+	ft_free_stack(stack_b);
+	ft_free_stack(stack_a);
+}
 
-	return 0;
+int	main(int argc, char **argv)
+{
+	int	*arra;
+	int	*norm;
+	int	size;
+
+	if (argc < 2)
+		return (ft_error_message(), 0);
+	arra = NULL;
+	size = ft_get_array(&arra, argv + 1, argc - 1);
+	if (!arra)
+		return (ft_error_message(), 0);
+	if (ft_check_dublicate(arra, size))
+		return (ft_error_message(), free(arra), 0);
+	norm = ft_normalize(arra, size);
+	free(arra);
+	if (!norm)
+		return (ft_error_message(), 0);
+	ft_start(norm, size);
+	free(norm);
+	return (0);
 }
