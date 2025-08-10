@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:14:05 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 15:59:59 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:58:38 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	sort_core(t_stack *stack_a, t_stack *stack_b, t_chunks chunks,
 		return (ft_move_back(stack_a, stack_b, chunks, type));
 	tmp = ft_set_chunks_updated(chunks, type);
 	ft_split_chnks(stack_a, stack_b, &tmp, type);
-
 	sort_core(stack_a, stack_b, tmp, MAX);
 	sort_core(stack_a, stack_b, tmp, MID);
 	sort_core(stack_a, stack_b, tmp, MIN);

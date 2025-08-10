@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 11:09:48 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/06 11:36:01 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:59:58 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_ss(t_stack *stack_a, t_stack *stack_b)
 
 void	ft_rr(t_stack *stack_a, t_stack *stack_b)
 {
-	if (!stack_a || !stack_b )
+	if (!stack_a || !stack_b)
 		return ;
 	if (stack_a->size < 2 || stack_b->size < 2)
 		return ;

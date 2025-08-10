@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 21:00:12 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/05 22:00:28 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:59:35 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,8 @@ void	ft_rotate(t_stack *stack)
 		return ;
 	first = stack->top;
 	last = stack->bottom;
-
 	stack->top = first->next;
 	stack->top->prev = NULL;
-
 	first->next = NULL;
 	last->next = first;
 	first->prev = last;
@@ -114,10 +112,3 @@ void	ft_rrotate(t_stack *stack)
 	first->prev = last;
 	stack->top = last;
 }
-
-// void ft_sa(t_stack *stack)
-// {
-// 	if (!stack || stack->size < 2)
-// 		return ;
-
-// }

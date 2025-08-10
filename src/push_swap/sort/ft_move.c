@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:51:59 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/09 15:56:56 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:58:18 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	ft_move_top_b(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
 		ft_rb(stack_b);
 	return (0);
 }
+
 int	ft_move_bottom_a(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
 {
 	int	fir;
@@ -72,7 +73,7 @@ int	ft_move_bottom_a(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
 
 int	ft_move_bottom_b(t_stack *stack_a, t_stack *stack_b, t_chunks chunks)
 {
-	int fir;
+	int	fir;
 
 	fir = ft_get_top(stack_b);
 	if (fir >= chunks.max.min && fir <= chunks.max.max)

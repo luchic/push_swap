@@ -6,13 +6,12 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 15:58:27 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/29 14:03:52 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:57:30 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_defs.h"
 #include "ft_utils.h"
-
 
 size_t	ft_set_none(t_format *cur)
 {
