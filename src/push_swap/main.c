@@ -6,17 +6,16 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 18:12:25 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 15:47:29 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 19:32:55 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sort.h"
 #include "ft_stack.h"
-#include "ft_stack_operation.h"
-#include "ft_utils.h"
 #include "libft.h"
 #include "ft_parse.h"
 #include "ft_normalize.h"
+#include "ft_error.h"
 #include <stdlib.h>
 
 // void	ft_print_data(t_stack *stack)
@@ -33,11 +32,6 @@
 // 	}
 // 	ft_printf("\n");
 // }
-
-void	ft_error_message(void)
-{
-	ft_printf("Error\n");
-}
 
 void	ft_start(int *array, int size)
 {

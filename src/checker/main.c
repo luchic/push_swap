@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:56:12 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 19:12:08 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 19:49:39 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "ft_parse.h"
 #include "ft_normalize.h"
 #include "ft_error.h"
+#include "ft_checker.h"
+#include "ft_checker_parse.h"
 #include <stdlib.h>
 
 void	print_error(void)
@@ -34,7 +36,12 @@ void	ft_start(int *array, int size)
 	stack_b = ft_init_stack(NULL, 0);
 	if (!stack_b)
 		return (ft_error_message(), ft_free_stack(stack_a));
-	ft_sort(stack_a, stack_b);
+	ft_run(stack_a, stack_b);
+	if (ft_is_sorted(stack_a, stack_b))
+		ft_printf(OK);
+	else
+		ft_printf(KO);
+
 	ft_free_stack(stack_b);
 	ft_free_stack(stack_a);
 }
@@ -46,7 +53,7 @@ int	main(int argc, char **argv)
 	int	size;
 
 	if (argc < 2)
-		return (ft_error_message(), 0);
+		return (0);
 	if (!ft_validate_args(argv + 1, argc - 1))
 		return (ft_error_message(), 0);
 	arra = NULL;
