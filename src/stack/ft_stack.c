@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:44:21 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/30 20:27:08 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 11:27:34 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@ static t_dlist	*ft_new_node(int value)
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
-}
-
-static void	ft_free_dlist(t_dlist *head)
-{
-	t_dlist	*temp;
-
-	while (head)
-	{
-		temp = head;
-		head = head->next;
-		free(temp);
-	}
 }
 
 static t_dlist	*ft_add_front(t_dlist *head, int value)
