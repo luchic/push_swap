@@ -3,14 +3,17 @@ NAME = push_swap
 
 # folder with src code
 SRC = src
-SORT = $(SRC)/sort
-STACK = $(SRC)/stack
-UTILS = $(SRC)/utils
-PARSE = $(SRC)/parse
-NORMALIZE = $(SRC)/normalize
+
+## Push_swap  
+PSRC = $(SRC)/push_swap
+SORT = $(PSRC)/sort
+STACK = $(PSRC)/stack
+UTILS = $(PSRC)/utils
+PARSE = $(PSRC)/parse
+NORMALIZE = $(PSRC)/normalize
 
 SRC_FILES = \
-$(SRC)/main.c \
+$(PSRC)/main.c \
 $(PARSE)/ft_parse_input.c \
 $(PARSE)/ft_get_array.c \
 $(PARSE)/ft_parse_dublicate.c \
