@@ -6,14 +6,38 @@ SRC = src
 SORT = $(SRC)/sort
 STACK = $(SRC)/stack
 UTILS = $(SRC)/utils
+PARSE = $(SRC)/parse
+NORMALIZE = $(SRC)/normalize
 
-## All Src files
-# SRC_FILES = $(wildcard $(SRC)/*.c)
-SRC_FILES = $(wildcard $(SRC)/*.c)
-SRC_FILES += $(wildcard $(SORT)/*.c)
-SRC_FILES += $(wildcard $(STACK)/*.c)
-SRC_FILES += $(wildcard $(UTILS)/*.c)
+SRC_FILES = \
+$(SRC)/main.c \
+$(PARSE)/ft_parse_input.c \
+$(PARSE)/ft_get_array.c \
+$(PARSE)/ft_parse_dublicate.c \
+$(NORMALIZE)/ft_normalize.c \
+$(SORT)/ft_sort.c \
+$(SORT)/ft_sort_three.c \
+$(SORT)/ft_sort_five.c \
+$(SORT)/ft_move.c \
+$(SORT)/ft_return.c \
+$(SORT)/ft_split.c \
+$(STACK)/ft_stack.c \
+$(STACK)/ft_base_operation.c \
+$(STACK)/ft_free_stack.c \
+$(STACK)/ft_stack_abop.c \
+$(STACK)/ft_stack_aop.c \
+$(STACK)/ft_stack_bop.c \
+$(UTILS)/ft_utils.c \
+$(UTILS)/ft_utils1.c \
+$(UTILS)/ft_get_utils.c \
+$(UTILS)/ft_get_utils1.c \
+$(UTILS)/ft_position.c \
+$(UTILS)/ft_chunks.c
+
 OBJ_FILES = $(SRC_FILES:.c=.o)
+
+# Header
+HEADER = includes
 
 # Libft
 DLIBFT = libft
@@ -21,10 +45,7 @@ LIBFT = $(DLIBFT)/libft.a
 FT = ft
 
 # For tests
-TOUT = push_swap
-
-# Header
-HEADER = includes
+TOUT = a.out
 
 # Compiler and flags
 CFLAGS = -Wall -Wextra -Werror -I$(HEADER)
@@ -33,13 +54,8 @@ CC = cc
 
 all : $(NAME)
 
-# bonus : $(NAME)
-
-# debug : $(MAIN) $(SRC_FILES) $(LIBFT)
-# 	$(CC) $(CDEBUG) $(MAIN) $(SRC_FILES) -L$(DLIBFT) -l$(FT)
-
-# $(NAME) : 	$(OBJ_FILES) $(LIBFT)
-# 	$(CC) $(CDEBUG) $(OBJ_FILES) -L$(DLIBFT) -l$(FT)	
+$(NAME) : 	$(OBJ_FILES) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ_FILES) -L$(DLIBFT) -l$(FT)	
 
 debug : $(SRC_FILES) $(LIBFT)
 	$(CC) $(CDEBUG) $(SRC_FILES) -L$(DLIBFT) -l$(FT)	
