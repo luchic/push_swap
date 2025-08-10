@@ -6,18 +6,18 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 10:28:07 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/24 10:38:50 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:58:50 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
 {
 	char	*new_ptr;
 	char	*str;
 	size_t	copy_size;
-	size_t	i;
 
 	if (ptr == NULL)
 		return (malloc(new_size));
