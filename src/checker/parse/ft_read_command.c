@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:05:51 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 18:43:15 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 20:52:33 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	append_line(char **line, char *buff)
 	}
 	*line[size] = buff[0];
 	size++;
+	return (1);
 }
 
 static void	free_line(char **line)
