@@ -6,14 +6,14 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 21:27:56 by nluchini          #+#    #+#             */
-/*   Updated: 2025/07/31 11:15:59 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 15:18:12 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_STACK_OPERATION_H
 # define FT_STACK_OPERATION_H
 
-# include "ft_stack.h"
+# include "ft_def.h"
 
 void	ft_sb(t_stack *stack);
 void	ft_pb(t_stack *stack_a, t_stack *stack_b);
