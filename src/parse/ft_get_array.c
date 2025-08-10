@@ -1,48 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_data_checker.c                                  :+:      :+:    :+:   */
+/*   ft_get_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/29 21:10:33 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 11:11:05 by nluchini         ###   ########.fr       */
+/*   Created: 2025/08/10 11:29:24 by nluchini          #+#    #+#             */
+/*   Updated: 2025/08/10 12:03:42 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-int	ft_check_data(char **data, int len)
-{
-	int	i;
-	int	j;
-
-	if (!data || len <= 0)
-		return (0);
-	i = -1;
-	j = 0;
-	while (++i < len)
-	{
-		j = 0;
-		while (data[i][j])
-		{
-			if (data[i][j] == '-')
-				j++;
-			if (!ft_isdigit(data[i][j]))
-				return (0);
-			while (ft_isdigit(data[i][j]))
-				j++;
-			if (data[i][j] != ' ' && data[i][j] != '\0')
-				return (0);
-			if (data[i][j] == ' ' && data[i][j + 1] != '\0')
-				j++;
-		}
-	}
-	return (1);
-}
-
-// Function return size of total numbers i have.
 static int	ft_size_data(char **data, int len)
 {
 	int		size;
@@ -69,31 +38,7 @@ static int	ft_size_data(char **data, int len)
 	return (size);
 }
 
-int	ft_check_dublicate(int *array, int size)
-{
-	int	i;
-	int	j;
-
-	if (!array || size < 0)
-		return (0);
-	if (size == 0 || size == 1)
-		return (0);
-	i = 0;
-	while (i < size - 1)
-	{
-		j = i + 1;
-		while (j < size)
-		{
-			if (array[i] == array[j])
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-static int	ft_fill_array(char **data, int *array, int ldata, int larray)
+static void	ft_fill_array(char **data, int *array, int ldata, int larray)
 {
 	int		i;
 	int		j;
