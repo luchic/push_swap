@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:44:21 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 11:27:34 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/10 14:52:38 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ t_stack	*ft_init_stack(int *array, size_t len)
 	if (!stack)
 		return (NULL);
 	if (len == 0 || array == NULL)
-		return (stack->size = 0, stack->bottom = NULL, stack->bottom = NULL,
-			stack);
+		return (stack->size = 0, stack->bottom = NULL, stack);
 	list = ft_setup_dlist(array, len);
 	if (!list)
 		return (free(stack), NULL);
