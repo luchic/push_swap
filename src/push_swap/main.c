@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 18:12:25 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 19:32:55 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:21:23 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 	int	size;
 
 	if (argc < 2)
-		return (ft_error_message(), 0);
+		return (0);
 	if (!ft_validate_args(argv + 1, argc - 1))
 		return (ft_error_message(), 0);
 	arra = NULL;
