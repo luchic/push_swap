@@ -6,18 +6,18 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 16:56:12 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 19:49:39 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:52:46 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_checker.h"
+#include "ft_checker_parse.h"
+#include "ft_error.h"
+#include "ft_normalize.h"
+#include "ft_parse.h"
 #include "ft_sort.h"
 #include "ft_stack.h"
 #include "libft.h"
-#include "ft_parse.h"
-#include "ft_normalize.h"
-#include "ft_error.h"
-#include "ft_checker.h"
-#include "ft_checker_parse.h"
 #include <stdlib.h>
 
 void	print_error(void)
@@ -41,7 +41,6 @@ void	ft_start(int *array, int size)
 		ft_printf(OK);
 	else
 		ft_printf(KO);
-
 	ft_free_stack(stack_b);
 	ft_free_stack(stack_a);
 }

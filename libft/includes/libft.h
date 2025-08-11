@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:24:52 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 18:56:12 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:53:22 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,9 +295,8 @@ char				*ft_strnstr(const char *haystack, const char *needle,
  *  the functions locate the terminating `\0'.
  * @param  s: String where looking for character.
  * @param  c: Character that we looking for.
-
-	* @retval  The functions ft_strrchr() return a pointer to the located character,
- *  or NULL if the character does not appearing the string.
+ * @retval  The functions ft_strrchr() return a pointer to the located
+ * character, or NULL if the character does not appearing the string.
  */
 char				*ft_strrchr(const char *s, int c);
 
