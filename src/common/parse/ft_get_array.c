@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 11:29:24 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 13:49:42 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:39:41 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ static int	ft_size_data(char **data, int len)
 static int	ft_fill_int(char *str, int *array, int index, int size)
 {
 	char	*tmp;
+	int		j;
 
+	j = index;
 	while (*str)
 	{
 		while (*str == ' ' && index < size)
@@ -64,7 +66,7 @@ static int	ft_fill_int(char *str, int *array, int index, int size)
 		else if (*str)
 			str++;
 	}
-	return (0);
+	return (index - j);
 }
 
 static void	ft_fill_array(char **data, int **array, int ldata, int larray)
