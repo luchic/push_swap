@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 17:05:51 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 20:52:33 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/11 10:33:57 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ static int	append_line(char **line, char *buff)
 		if (tmp == NULL)
 			return (0);
 		*line = tmp;
-		free(tmp);
 	}
-	*line[size] = buff[0];
+	(*line)[size] = buff[0];
 	size++;
 	return (1);
 }
@@ -57,16 +56,15 @@ char	*ft_read_line_stdin(void)
 	char	*command;
 	ssize_t	len;
 
-	len = 0;
 	command = NULL;
-	len = read(0, buff, sizeof(buff));
+	len = read(0, buff, 1);
 	while (len > 0)
 	{
 		if (buff[0] == '\n' || buff[0] == '\0')
 			return (command);
 		if (!append_line(&command, buff))
 			return (free_line(&command), NULL);
-		len = read(0, buff, sizeof(buff));
+		len = read(0, buff, 1);
 	}
 	if (len == -1)
 	{

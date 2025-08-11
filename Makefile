@@ -77,11 +77,11 @@ LIBFT = $(DLIBFT)/libft.a
 FT = ft
 
 # For tests
-TOUT = a.out
+# TOUT = a.out
 
 # Compiler and flags
 CFLAGS = -Wall -Wextra -Werror -I$(HEADER)
-CDEBUG = -g -I$(HEADER) -o	$(TOUT) -fsanitize=address,undefined
+# CDEBUG = -g -I$(HEADER) -o	$(TOUT) -fsanitize=address,undefined
 CC = cc
 
 all : $(NAME)
@@ -102,8 +102,19 @@ $(CHECKER) : $(CHECKER_OBJ) $(STACK_OBJ) $(COMMON_OBJ) $(LIBFT)
 		$(CHECKER_OBJ) \
 		-L$(DLIBFT) -l$(FT)
 
-debug : $(SRC_FILES) $(LIBFT)
-	$(CC) $(CDEBUG) $(SRC_FILES) -L$(DLIBFT) -l$(FT)	
+# debug_bonus : $(CHECKER_FILES) $(STACK_SRC) $(COMMON_SRC) $(LIBFT)
+# 	$(CC) $(CDEBUG) -o $(CHECKER) \
+# 		$(CHECKER_FILES) \
+# 		$(STACK_SRC) \
+# 		$(COMMON_SRC) \
+# 		-L$(DLIBFT) -l$(FT)	
+
+# debug : $(SRC_FILES) $(STACK_SRC) $(COMMON_SRC) $(LIBFT)
+# 	$(CC) $(CDEBUG) -o $(NAME) \
+# 		$(SRC_FILES) \
+# 		$(STACK_SRC) \
+# 		$(COMMON_SRC) \
+# 		-L$(DLIBFT) -l$(FT)	
 
 $(LIBFT) :
 	make -C $(DLIBFT) all
@@ -123,5 +134,5 @@ clean :
 	rm -f $(TOUT)
 	make -C $(DLIBFT) fclean
 
-.PHONY: all clean fclean re debug
+.PHONY: all clean fclean re #debug debug_bonus
 

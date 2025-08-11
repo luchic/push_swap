@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 19:04:34 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/10 19:42:39 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/11 10:35:15 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,6 @@ void	ft_run(t_stack *a, t_stack *b)
 		free(command);
 		command = ft_read_line_stdin();
 	}
+	if (command)
+		free(command);
 }
